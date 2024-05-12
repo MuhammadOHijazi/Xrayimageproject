@@ -55,7 +55,7 @@ namespace xrayimageproject
                 // End the selection when the mouse is up
                 isSelecting = false;
                 // to do later here, handle the selected part of the image
-
+                // the third
             }
         }
 
@@ -88,6 +88,23 @@ namespace xrayimageproject
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox1.Image = new Bitmap(openFileDialog.FileName);
+                }
+            }
         }
     }
 }
