@@ -41,6 +41,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
@@ -55,6 +57,7 @@
             pictureBox2 = new PictureBox();
             panel2 = new Panel();
             guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
+            guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -239,6 +242,7 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(guna2Button7);
             panel2.Controls.Add(guna2Button2);
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 58);
@@ -249,7 +253,7 @@
             // guna2Button2
             // 
             guna2Button2.BorderRadius = 20;
-            guna2Button2.CustomizableEdges = customizableEdges13;
+            guna2Button2.CustomizableEdges = customizableEdges15;
             guna2Button2.DisabledState.BorderColor = Color.DarkGray;
             guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -265,12 +269,37 @@
             guna2Button2.ImageOffset = new Point(5, 0);
             guna2Button2.Location = new Point(3, 68);
             guna2Button2.Name = "guna2Button2";
-            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges16;
             guna2Button2.Size = new Size(174, 56);
             guna2Button2.TabIndex = 4;
             guna2Button2.Text = "Import";
             guna2Button2.TextOffset = new Point(10, 0);
             guna2Button2.Click += guna2Button2_Click;
+            // 
+            // guna2Button7
+            // 
+            guna2Button7.BorderRadius = 20;
+            guna2Button7.CustomizableEdges = customizableEdges13;
+            guna2Button7.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button7.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button7.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button7.FillColor = SystemColors.Control;
+            guna2Button7.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2Button7.ForeColor = Color.Gray;
+            guna2Button7.HoverState.BorderColor = Color.FromArgb(30, 170, 231);
+            guna2Button7.HoverState.FillColor = Color.FromArgb(30, 170, 231);
+            guna2Button7.HoverState.ForeColor = Color.White;
+            guna2Button7.Image = (Image)resources.GetObject("guna2Button7.Image");
+            guna2Button7.ImageAlign = HorizontalAlignment.Left;
+            guna2Button7.ImageOffset = new Point(5, 0);
+            guna2Button7.Location = new Point(3, 148);
+            guna2Button7.Name = "guna2Button7";
+            guna2Button7.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2Button7.Size = new Size(174, 56);
+            guna2Button7.TabIndex = 5;
+            guna2Button7.Text = "Editing";
+            guna2Button7.TextOffset = new Point(10, 0);
             // 
             // Form1
             // 
@@ -308,5 +337,6 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button6;
         private Guna.UI2.WinForms.Guna2Button guna2Button3;
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
+        private Guna.UI2.WinForms.Guna2Button guna2Button7;
     }
 }

@@ -1,5 +1,6 @@
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace xrayimageproject
 {
@@ -12,6 +13,9 @@ namespace xrayimageproject
         public Form1()
         {
             InitializeComponent();
+            this.panel1.MouseDown += new MouseEventHandler(panel1_MouseDown);
+            this.panel1.MouseMove += new MouseEventHandler(panel1_MouseMove);
+            this.panel1.MouseUp += new MouseEventHandler(panel1_MouseUp);
 
             pictureBox1.MouseDown += new MouseEventHandler(pictureBox_MouseDown);
             pictureBox1.MouseMove += new MouseEventHandler(pictureBox_MouseMove);
@@ -166,6 +170,30 @@ namespace xrayimageproject
             {
                 WindowState = FormWindowState.Normal;
             }
+        }
+        private bool dragging = false;
+        private Point dragCursorPoint;
+        private Point dragFormPoint;
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
         }
     }
 }
