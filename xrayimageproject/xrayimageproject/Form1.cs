@@ -195,5 +195,10 @@ namespace xrayimageproject
         {
             dragging = false;
         }
+
+        private void guna2Button7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
