@@ -1,3 +1,4 @@
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace xrayimageproject
@@ -20,14 +21,7 @@ namespace xrayimageproject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    pictureBox1.Image = new Bitmap(openFileDialog.FileName);
-                }
-            }
+
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -55,7 +49,7 @@ namespace xrayimageproject
                 // End the selection when the mouse is up
                 isSelecting = false;
                 // to do later here, handle the selected part of the image
-                // the third
+
             }
         }
 
@@ -90,12 +84,44 @@ namespace xrayimageproject
 
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
+        private static Bitmap ConvertToGrayscale(Bitmap original)
+        {
+            // Create a blank bitmap with the same dimensions as the original
+            Bitmap grayscaleBitmap = new Bitmap(original.Width, original.Height);
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+            // Create a graphics object for the new bitmap
+            using (Graphics g = Graphics.FromImage(grayscaleBitmap))
+            {
+                // Define the color matrix
+                ColorMatrix colorMatrix = new ColorMatrix(
+                    new float[][]
+                    {
+                new float[] {.3f, .3f, .3f, 0, 0},
+                new float[] {.59f, .59f, .59f, 0, 0},
+                new float[] {.11f, .11f, .11f, 0, 0},
+                new float[] {0, 0, 0, 1, 0},
+                new float[] {0, 0, 0, 0, 1}
+                    });
+
+                // Create image attributes
+                using (ImageAttributes attributes = new ImageAttributes())
+                {
+                    // Set the color matrix attribute
+                    attributes.SetColorMatrix(colorMatrix);
+
+                    // Draw the original image on the new image using the grayscale color matrix
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+
+            return grayscaleBitmap;
+        }
+        private void guna2Button2_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -103,7 +129,42 @@ namespace xrayimageproject
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     pictureBox1.Image = new Bitmap(openFileDialog.FileName);
+                    Bitmap originalBitmap = new Bitmap(openFileDialog.FileName);
+                    Bitmap grayscaleBitmap = ConvertToGrayscale(originalBitmap);
+                    pictureBox1.Image = grayscaleBitmap;
                 }
+            }
+        }
+
+        private void guna2Button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void guna2Button6_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+
+        }
+
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void guna2Button4_Click_1(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
             }
         }
     }
