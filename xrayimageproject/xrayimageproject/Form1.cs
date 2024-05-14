@@ -20,14 +20,7 @@ namespace xrayimageproject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    pictureBox1.Image = new Bitmap(openFileDialog.FileName);
-                }
-            }
+
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -88,6 +81,23 @@ namespace xrayimageproject
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox1.Image = new Bitmap(openFileDialog.FileName);
+                }
+            }
         }
     }
 }
