@@ -92,6 +92,11 @@ namespace xrayimageproject
         {
 
         }
+
+        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
         private static Bitmap ConvertToGrayscale(Bitmap original)
         {
             // Create a blank bitmap with the same dimensions as the original
