@@ -353,25 +353,6 @@ namespace xrayimageproject
 
         }
 
-        
-        // Generating Report
-        private void guna2Button12_Click(object sender, EventArgs e)
-        {
-            ReportInputForm inputForm = new();
-            DialogResult result = inputForm.ShowDialog(); // Show as a modal dialog
-
-            if (result == DialogResult.OK)
-            {
-                // Getting the input from the previous dialog and the current image
-                string patientName = inputForm.txtPatientName.Text; 
-                id++;
-                string diagnosisText = inputForm.txtDiagnosis.Text;
-                Image image = pictureBox1.Image;
-
-                ReportGeneration repoGene = new();
-                repoGene.GenerateReport(patientName, id.ToString(), diagnosisText, image);
-            }
-        }
         // Fourier button
         private void guna2Button13_Click(object sender, EventArgs e)
         {
@@ -400,9 +381,22 @@ namespace xrayimageproject
             Compression.CompressJpegImage(pictureBox1.Image, outputPath, quality);
         }
 
-        private void guna2Button12_Click(object sender, EventArgs e)
+        private void guna2Button12_Click_1(object sender, EventArgs e)
         {
+            ReportInputForm inputForm = new();
+            DialogResult result = inputForm.ShowDialog(); // Show as a modal dialog
 
+            if (result == DialogResult.OK)
+            {
+                // Getting the input from the previous dialog and the current image
+                string patientName = inputForm.txtPatientName.Text;
+                id++;
+                string diagnosisText = inputForm.txtDiagnosis.Text;
+                Image image = pictureBox1.Image;
+
+                ReportGeneration repoGene = new();
+                repoGene.GenerateReport(patientName, id.ToString(), diagnosisText, image);
+            }
         }
     }
     partial class ReportInputForm:Form
