@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
+using System.ComponentModel;
 
 namespace xrayimageproject
 {
@@ -355,17 +356,30 @@ namespace xrayimageproject
         private void guna2Button13_Click(object sender, EventArgs e)
         {
             float cutoffFrequency = 0.0f;
-            Bitmap resultImage = HighPassFilter.ApplyHighPassFilter(pictureBox1.Image, cutoffFrequency);
+            Bitmap resultImage = HighAndLowPassFilter.ApplyFilter(pictureBox1.Image, cutoffFrequency, HighAndLowPassFilter.FilterType.High);
             pictureBox3.Image = resultImage;
         }
         private void pictureBox3_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void guna2Button14_Click(object sender, EventArgs e)
+        {
+            float cutoffFrequency = 30.0f;
+            Bitmap resultImage = HighAndLowPassFilter.ApplyFilter(pictureBox1.Image, cutoffFrequency, HighAndLowPassFilter.FilterType.Low);
+            pictureBox3.Image = resultImage;
+        }
     }
-    public class HighPassFilter
+    public class HighAndLowPassFilter
     {
-        public static Bitmap ApplyHighPassFilter(System.Drawing.Image image, float cutoffFrequency)
+        public enum FilterType
+        {
+            High,
+            Low
+        }
+
+        public static Bitmap ApplyFilter(System.Drawing.Image image, float cutoffFrequency, FilterType filterType)
         {
             // Load the image
             Bitmap sourceImage = new Bitmap(image);
@@ -381,7 +395,7 @@ namespace xrayimageproject
             // Create a high-pass filter mask
             int width = grayImage.Width;
             int height = grayImage.Height;
-            float[,] hpfMask = CreateHighPassFilterMask(width, height, cutoffFrequency);
+            float[,] hpfMask = CreateFilterMask(width, height, cutoffFrequency, filterType);
 
             // Apply the high-pass filter mask to the FFT image
             ApplyMaskToComplexImage(complexImage, hpfMask);
@@ -394,7 +408,7 @@ namespace xrayimageproject
 
             return hpfImage;
         }
-        private static float[,] CreateHighPassFilterMask(int width, int height, float cutoffFrequency)
+        private static float[,] CreateFilterMask(int width, int height, float cutoffFrequency, FilterType filterType)
         {
             float[,] mask = new float[width, height];
             int cx = width / 2;
@@ -405,7 +419,14 @@ namespace xrayimageproject
                 for (int x = 0; x < width; x++)
                 {
                     double distance = Math.Sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
+                    if(filterType==FilterType.High)
+                    {
                     mask[x, y] = distance > cutoffFrequency ? 1 : 0;
+                    }
+                    else if(filterType==FilterType.Low)
+                    {
+                        mask[x, y] = distance <= cutoffFrequency ? 1 : 0;
+                    }
                 }
             }
 
