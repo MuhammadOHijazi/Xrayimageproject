@@ -228,15 +228,13 @@ namespace xrayimageproject
         }
         private Color MapIntensityToColor(int intensity)
         {
-            // Clamp the intensity to ensure it's within the 0-255 range
             intensity = Math.Clamp(intensity, 0, 255);
 
-            // Calculate the color component values, ensuring they do not exceed 255
-            int colorValue = intensity * 2;
-            colorValue = Math.Min(colorValue, 255); // Clamp the value to a maximum of 255
+            int colorValue = intensity *2;
+            colorValue = Math.Min(colorValue, 255); 
 
             // Return the color with the clamped values
-            return Color.FromArgb(255, colorValue, colorValue); // G
+            return Color.FromArgb(255, colorValue, colorValue);
         }
 
         private float[,] GetBrightnessMatrix(Bitmap grayscaleImage, Rectangle selection)
@@ -292,7 +290,6 @@ namespace xrayimageproject
         }
         private void InitializeComboBox()
         {
-            // Assuming 'guna2ComboBox1' is your Guna UI2 ComboBox
             guna2ComboBox1.SelectedIndexChanged += new EventHandler(guna2ComboBox1_SelectedIndexChanged);
         }
         private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
