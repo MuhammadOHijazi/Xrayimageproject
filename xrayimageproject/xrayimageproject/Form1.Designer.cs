@@ -249,7 +249,7 @@
             label1.Font = new Font("Century Gothic", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(69, 9);
             label1.Name = "label1";
-            label1.Size = new Size(328, 34);
+            label1.Size = new Size(262, 26);
             label1.TabIndex = 5;
             label1.Text = "X-Ray Images analyzer";
             label1.Click += label1_Click;
@@ -357,6 +357,7 @@
             guna2Button12.TabIndex = 8;
             guna2Button12.Text = "Export";
             guna2Button12.TextOffset = new Point(10, 0);
+            guna2Button12.Click += ExpoertPDF;
             // 
             // guna2Button11
             // 

@@ -9,6 +9,9 @@ namespace xrayimageproject
 {
     public partial class Form1 : Form
     {
+        // Patient ID
+        int id = 10001;
+
         // Declare variables to track the selection
         bool isSelecting = false;
         Point selectionStart, selectionEnd;
@@ -360,6 +363,18 @@ namespace xrayimageproject
         }
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+
+        }
+
+        // Export PDF Report
+        private void ExpoertPDF(object sender, EventArgs e)
+        {
+            string name = pictureBox1.Image.ToString();
+            id++;
+            string info = "Has a medium tumor";
+            string imgPath = outputpath;
+            string pdfOutputPath = "C:\\Users\\HP\\Documents\\Years To Go\\4th Year\\2nd Semester\\Multimedia\\P\\project\\D Code\\xrayimageproject\\xrayimageproject\\assets\\outputs\\patient_report.pdf";
+
 
         }
     }
