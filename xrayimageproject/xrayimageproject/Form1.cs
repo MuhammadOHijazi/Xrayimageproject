@@ -297,40 +297,247 @@ namespace xrayimageproject
         }
         private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (guna2ComboBox1.SelectedItem.ToString() == "Gray-Scale Mode")
+
+            switch (guna2ComboBox1.SelectedItem.ToString())
             {
-                Console.WriteLine("Gray-Scale Mode Selected");
-                Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
-                Bitmap grayscaleBitmap = ConvertToGrayscale(originalBitmap);
-                pictureBox1.Image = grayscaleBitmap;
-            }
-            if (guna2ComboBox1.SelectedItem.ToString() == "RGB Mode")
-            {
-                Console.WriteLine("RGB Mode Selected");
-                ConvertToRGB();
-            }
-            if (guna2ComboBox1.SelectedItem.ToString() == "CMY Mode")
-            {
-                Console.WriteLine("CMY Mode Selected");
-                ConvertToCMYK();
+                case "Gray-Scale Mode":
+                    Console.WriteLine("Gray-Scale Mode Selected");
+                    Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
+                    Bitmap grayscaleBitmap = ConvertToGrayscale(originalBitmap);
+                    pictureBox1.Image = grayscaleBitmap;
+                    break;
+                case "CMY Mode":
+                    Console.WriteLine("CMY Mode Selected");
+                    ConvertToCMY();
+                    break;
+                case "Hot Mode":
+                    Console.WriteLine("Hot Colormap Selected");
+                    ApplyHotColormap();
+                    break;
+                case "Jet Mode":
+                    Console.WriteLine("Jet Colormap Selected");
+                    ApplyJetColormap();
+                    break;
+                case "Pink Mode":
+                    Console.WriteLine("Pink Colormap Selected");
+                    ApplyPinkColormap();
+                    break;
+                case "Plasma Mode":
+                    Console.WriteLine("Plasma Colormap Selected");
+                    ApplyPlasmaColormap();
+                    break;
+                case "Bone Mode":
+                    Console.WriteLine("Bone Colormap Selected");
+                    ApplyBoneColormap();
+                    break;
             }
         }
-        private void ConvertToRGB()
+
+        // Coloring Systems
+        // Bone ColorMap
+        private void ApplyBoneColormap()
         {
-            // Assuming 'pictureBox1' contains the original image
             Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
-            // No conversion needed for RGB, but you can ensure the pixel format if necessary
-            Bitmap rgbBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            using (Graphics g = Graphics.FromImage(rgbBitmap))
+            Bitmap boneColormapBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
+
+            for (int x = 0; x < originalBitmap.Width; x++)
             {
-                g.DrawImage(originalBitmap, new Rectangle(0, 0, originalBitmap.Width, originalBitmap.Height));
+                for (int y = 0; y < originalBitmap.Height; y++)
+                {
+                    Color originalColor = originalBitmap.GetPixel(x, y);
+                    int intensity = (int)((originalColor.R + originalColor.G + originalColor.B) / 3);
+                    Color boneColor = CalculateBoneColor(intensity);
+                    boneColormapBitmap.SetPixel(x, y, boneColor);
+                }
             }
-            pictureBox1.Image = rgbBitmap;
+
+            pictureBox1.Image = boneColormapBitmap;
         }
-        private void ConvertToCMYK()
+
+        private Color CalculateBoneColor(int intensity)
         {
-            // CMYK conversion is complex and not natively supported by GDI+, but you can simulate it
-            // Assuming 'pictureBox1' contains the original image
+            float normalizedIntensity = intensity / 255f;
+            float r = normalizedIntensity < 0.75f ? normalizedIntensity : (0.75f * normalizedIntensity + 0.25f);
+            float g = normalizedIntensity < 0.75f ? normalizedIntensity : (0.75f * normalizedIntensity + 0.25f);
+            float b = normalizedIntensity < 0.5f ? 0.5f * normalizedIntensity : (0.75f * normalizedIntensity - 0.25f);
+
+            // Ensure the values are within [0, 255]
+            r = ClampBone(r);
+            g = ClampBone(g);
+            b = ClampBone(b);
+
+            return Color.FromArgb((int)(r * 255), (int)(g * 255), (int)(b * 255));
+        }
+        private float ClampBone(float value)
+        {
+            return Math.Max(0.0f, Math.Min(1.0f, value));
+        }
+
+        // Plasma ColorMap
+        private void ApplyPlasmaColormap()
+        {
+            Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
+            Bitmap plasmaColormapBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
+
+            for (int x = 0; x < originalBitmap.Width; x++)
+            {
+                for (int y = 0; y < originalBitmap.Height; y++)
+                {
+                    Color originalColor = originalBitmap.GetPixel(x, y);
+                    int intensity = (int)((originalColor.R + originalColor.G + originalColor.B) / 3);
+                    Color plasmaColor = CalculatePlasmaColor(intensity);
+                    plasmaColormapBitmap.SetPixel(x, y, plasmaColor);
+                }
+            }
+
+            pictureBox1.Image = plasmaColormapBitmap;
+        }
+
+        private Color CalculatePlasmaColor(int intensity)
+        {
+            float normalizedIntensity = intensity / 255f;
+            float r = ClampPlasma(PlasmaRedComponent(normalizedIntensity));
+            float g = ClampPlasma(PlasmaGreenComponent(normalizedIntensity));
+            float b = ClampPlasma(PlasmaBlueComponent(normalizedIntensity));
+
+            return Color.FromArgb((int)(r * 255), (int)(g * 255), (int)(b * 255));
+        }
+        // Helper method to clamp color values
+        private float ClampPlasma(float value)
+        {
+            return Math.Max(0.0f, Math.Min(1.0f, value));
+        }
+        private float PlasmaRedComponent(float value)
+        {
+            if (value <= 0.5f)
+                return 1.0f;
+            else if (value <= 0.75f)
+                return -4.0f * value + 3.5f;
+            else
+                return 0.5f;
+        }
+        private float PlasmaGreenComponent(float value)
+        {
+            if (value <= 0.25f)
+                return 4.0f * value;
+            else if (value <= 0.5f)
+                return 1.0f;
+            else if (value <= 0.75f)
+                return -4.0f * value + 3.5f;
+            else
+                return 0.5f;
+        }
+        private float PlasmaBlueComponent(float value)
+        {
+            if (value <= 0.25f)
+                return 0.5f;
+            else if (value <= 0.5f)
+                return 4.0f * value - 0.5f;
+            else
+                return 1.0f;
+        }
+
+
+        // Pink ColorMap
+        private void ApplyPinkColormap()
+        {
+            Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
+            Bitmap pinkColormapBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
+            for (int x = 0; x < originalBitmap.Width; x++)
+            {
+                for (int y = 0; y < originalBitmap.Height; y++)
+                {
+                    Color originalColor = originalBitmap.GetPixel(x, y);
+                    int intensity = (int)((originalColor.R + originalColor.G + originalColor.B) / 3);
+                    Color pinkColor = CalculatePinkColor(intensity);
+                    pinkColormapBitmap.SetPixel(x, y, pinkColor);
+                }
+            }
+
+            pictureBox1.Image = pinkColormapBitmap;
+        }
+
+        private Color CalculatePinkColor(int intensity)
+        {
+            float normalizedIntensity = intensity / 255f;
+            float r = normalizedIntensity;
+            float g = (float)Math.Sqrt(normalizedIntensity);
+            float b = (float)Math.Sqrt(g);
+
+            return Color.FromArgb((int)(r * 255), (int)(g * 255), (int)(b * 255));
+        }
+
+        // Jet ColorMap
+        private void ApplyJetColormap()
+        {
+            Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
+            Bitmap jetColormapBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
+
+            for (int x = 0; x < originalBitmap.Width; x++)
+            {
+                for (int y = 0; y < originalBitmap.Height; y++)
+                {
+                    Color originalColor = originalBitmap.GetPixel(x, y);
+                    int intensity = (int)((originalColor.R + originalColor.G + originalColor.B) / 3);
+                    Color jetColor = CalculateJetColor(intensity);
+                    jetColormapBitmap.SetPixel(x, y, jetColor);
+                }
+            }
+
+            pictureBox1.Image = jetColormapBitmap;
+        }
+
+        private Color CalculateJetColor(int intensity)
+        {
+            float normalizedIntensity = intensity / 255f;
+            float r = ClampValue(1.5f - Math.Abs(4f * normalizedIntensity - 3f));
+            float g = ClampValue(1.5f - Math.Abs(4f * normalizedIntensity - 2f));
+            float b = ClampValue(1.5f - Math.Abs(4f * normalizedIntensity - 1f));
+
+            return Color.FromArgb((int)(r * 255), (int)(g * 255), (int)(b * 255));
+        }
+
+        private float ClampValue(float value)
+        {
+            return Math.Max(0.0f, Math.Min(1.0f, value));
+        }
+
+        // Hot ColorMap
+        private void ApplyHotColormap()
+        {
+            Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
+            Bitmap hotColormapBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
+            for (int x = 0; x < originalBitmap.Width; x++)
+            {
+                for (int y = 0; y < originalBitmap.Height; y++)
+                {
+                    Color originalColor = originalBitmap.GetPixel(x, y);
+                    int intensity = (int)((originalColor.R + originalColor.G + originalColor.B) / 3);
+                    Color hotColor = CalculateHotColor(intensity);
+                    hotColormapBitmap.SetPixel(x, y, hotColor);
+                }
+            }
+
+            pictureBox1.Image = hotColormapBitmap;
+        }
+
+        private Color CalculateHotColor(int intensity)
+        {
+            float normalizedIntensity = intensity / 255f;
+            int r = normalizedIntensity < 0.3f ? (int)(normalizedIntensity / 0.3f * 255) : 255;
+            int g = normalizedIntensity < 0.3f ? 0 : normalizedIntensity < 0.6f ? (int)((normalizedIntensity - 0.3f) / 0.3f * 255) : 255;
+            int b = normalizedIntensity < 0.6f ? 0 : (int)((normalizedIntensity - 0.6f) / 0.4f * 255);
+
+            // Ensure the values are within [0, 255]
+            r = Math.Min(255, Math.Max(0, r));
+            g = Math.Min(255, Math.Max(0, g));
+            b = Math.Min(255, Math.Max(0, b));
+
+            return Color.FromArgb(r, g, b);
+        }
+        // CMY System Color
+        private void ConvertToCMY()
+        {
             Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
             Bitmap cmykBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
             for (int x = 0; x < originalBitmap.Width; x++)
@@ -338,7 +545,6 @@ namespace xrayimageproject
                 for (int y = 0; y < originalBitmap.Height; y++)
                 {
                     Color pixelColor = originalBitmap.GetPixel(x, y);
-                    // Simulate CMYK conversion by inverting the colors
                     Color cmykColor = Color.FromArgb(255 - pixelColor.R, 255 - pixelColor.G, 255 - pixelColor.B);
                     cmykBitmap.SetPixel(x, y, cmykColor);
                 }
@@ -346,6 +552,7 @@ namespace xrayimageproject
             pictureBox1.Image = cmykBitmap;
         }
 
+        // Clibboard button
         private void guna2Button10_Click(object sender, EventArgs e)
         {
             Clipboard.SetImage(pictureBox1.Image);
@@ -353,7 +560,7 @@ namespace xrayimageproject
 
         }
 
-        // Fourier button
+        // HPF Fourier button
         private void guna2Button13_Click(object sender, EventArgs e)
         {
             float cutoffFrequency = 0.0f;
@@ -365,6 +572,7 @@ namespace xrayimageproject
 
         }
 
+        // LPF Fourier button
         private void guna2Button14_Click(object sender, EventArgs e)
         {
             float cutoffFrequency = 30.0f;
@@ -372,6 +580,7 @@ namespace xrayimageproject
             pictureBox3.Image = resultImage;
         }
 
+        // compress button
         private void guna2Button15_Click(object sender, EventArgs e)
         {
 
@@ -381,6 +590,7 @@ namespace xrayimageproject
             Compression.CompressJpegImage(pictureBox1.Image, outputPath, quality);
         }
 
+        // generating report
         private void guna2Button12_Click_1(object sender, EventArgs e)
         {
             ReportInputForm inputForm = new();
