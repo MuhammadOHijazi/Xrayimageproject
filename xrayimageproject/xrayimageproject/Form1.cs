@@ -90,32 +90,7 @@ namespace xrayimageproject
         {
 
         }
-        private static Bitmap ConvertToGrayscale(Bitmap original)
-        {
-            Bitmap grayscaleBitmap = new Bitmap(original.Width, original.Height);
 
-            using (Graphics g = Graphics.FromImage(grayscaleBitmap))
-            {
-                ColorMatrix colorMatrix = new ColorMatrix(
-                    new float[][]
-                    {
-                new float[] {.3f, .3f, .3f, 0, 0},
-                new float[] {.59f, .59f, .59f, 0, 0},
-                new float[] {.11f, .11f, .11f, 0, 0},
-                new float[] {0, 0, 0, 1, 0},
-                new float[] {0, 0, 0, 0, 1}
-                    });
-
-                using (ImageAttributes attributes = new ImageAttributes())
-                {
-                    attributes.SetColorMatrix(colorMatrix);
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-                }
-            }
-
-            return grayscaleBitmap;
-        }
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -189,7 +164,6 @@ namespace xrayimageproject
         {
 
         }
-
         private void guna2Button8_Click(object sender, EventArgs e)
         {
             Bitmap originalImage = (Bitmap)pictureBox1.Image;
@@ -218,24 +192,17 @@ namespace xrayimageproject
 
                 g.DrawImage(selectedBitmap, selectedArea.Location);
             }
-
-            selectedBitmap.Dispose();
-
             pictureBox1.Refresh();
         }
         private Color MapIntensityToColor(int intensity)
         {
-            // Clamp the intensity to ensure it's within the 0-255 range
             intensity = Math.Clamp(intensity, 0, 255);
 
-            // Calculate the color component values, ensuring they do not exceed 255
             int colorValue = intensity * 2;
-            colorValue = Math.Min(colorValue, 255); // Clamp the value to a maximum of 255
+            colorValue = Math.Min(colorValue, 255); 
 
-            // Return the color with the clamped values
             return Color.FromArgb(255, colorValue, colorValue); // G
         }
-
         private float[,] GetBrightnessMatrix(Bitmap grayscaleImage, Rectangle selection)
         {
             int width = selection.Width;
@@ -289,7 +256,6 @@ namespace xrayimageproject
         }
         private void InitializeComboBox()
         {
-            // Assuming 'guna2ComboBox1' is your Guna UI2 ComboBox
             guna2ComboBox1.SelectedIndexChanged += new EventHandler(guna2ComboBox1_SelectedIndexChanged);
         }
         private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -312,11 +278,35 @@ namespace xrayimageproject
                 ConvertToCMYK();
             }
         }
+        private static Bitmap ConvertToGrayscale(Bitmap original)
+        {
+            Bitmap grayscaleBitmap = new Bitmap(original.Width, original.Height);
+
+            using (Graphics g = Graphics.FromImage(grayscaleBitmap))
+            {
+                ColorMatrix colorMatrix = new ColorMatrix(
+                    new float[][]
+                    {
+                new float[] {.3f, .3f, .3f, 0, 0},
+                new float[] {.59f, .59f, .59f, 0, 0},
+                new float[] {.11f, .11f, .11f, 0, 0},
+                new float[] {0, 0, 0, 1, 0},
+                new float[] {0, 0, 0, 0, 1}
+                    });
+
+                using (ImageAttributes attributes = new ImageAttributes())
+                {
+                    attributes.SetColorMatrix(colorMatrix);
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+
+            return grayscaleBitmap;
+        }
         private void ConvertToRGB()
         {
-            // Assuming 'pictureBox1' contains the original image
             Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
-            // No conversion needed for RGB, but you can ensure the pixel format if necessary
             Bitmap rgbBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
             using (Graphics g = Graphics.FromImage(rgbBitmap))
             {
@@ -326,8 +316,6 @@ namespace xrayimageproject
         }
         private void ConvertToCMYK()
         {
-            // CMYK conversion is complex and not natively supported by GDI+, but you can simulate it
-            // Assuming 'pictureBox1' contains the original image
             Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
             Bitmap cmykBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
             for (int x = 0; x < originalBitmap.Width; x++)
@@ -335,7 +323,6 @@ namespace xrayimageproject
                 for (int y = 0; y < originalBitmap.Height; y++)
                 {
                     Color pixelColor = originalBitmap.GetPixel(x, y);
-                    // Simulate CMYK conversion by inverting the colors
                     Color cmykColor = Color.FromArgb(255 - pixelColor.R, 255 - pixelColor.G, 255 - pixelColor.B);
                     cmykBitmap.SetPixel(x, y, cmykColor);
                 }

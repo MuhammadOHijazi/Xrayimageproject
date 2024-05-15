@@ -428,7 +428,7 @@
             guna2ComboBox1.Font = new Font("Segoe UI", 10F);
             guna2ComboBox1.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox1.ItemHeight = 30;
-            guna2ComboBox1.Items.AddRange(new object[] { "Select Color System", "Gray-Scale Mode", "RGB Mode", "CMY Mode", "HSV Mode", "YcBCr Mode", "YUV Mode", "L*a*b Mode" });
+            guna2ComboBox1.Items.AddRange(new object[] { "Select Color System", "Gray-Scale Mode", "RGB Mode", "CMY Mode" });
             guna2ComboBox1.Location = new Point(447, 17);
             guna2ComboBox1.Name = "guna2ComboBox1";
             guna2ComboBox1.ShadowDecoration.CustomizableEdges = customizableEdges24;
