@@ -1,4 +1,5 @@
-﻿namespace xrayimageproject
+﻿
+namespace xrayimageproject
 {
     partial class Form1
     {
@@ -85,6 +86,7 @@
             guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             panel3 = new Panel();
+            guna2ComboBox2 = new Guna.UI2.WinForms.Guna2ComboBox();
             guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
             guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button8 = new Guna.UI2.WinForms.Guna2Button();
@@ -423,6 +425,7 @@
             guna2Button12.TabIndex = 8;
             guna2Button12.Text = "Export";
             guna2Button12.TextOffset = new Point(10, 0);
+            guna2Button12.Click += guna2Button12_Click_1;
             // 
             // guna2Button11
             // 
@@ -506,6 +509,7 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(guna2ComboBox2);
             panel3.Controls.Add(guna2ComboBox1);
             panel3.Controls.Add(guna2Button9);
             panel3.Controls.Add(guna2Button8);
@@ -514,6 +518,26 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(1120, 74);
             panel3.TabIndex = 4;
+            // 
+            // guna2ComboBox2
+            // 
+            guna2ComboBox2.BackColor = Color.Transparent;
+            guna2ComboBox2.CustomizableEdges = customizableEdges29;
+            guna2ComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
+            guna2ComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            guna2ComboBox2.FillColor = SystemColors.Control;
+            guna2ComboBox2.FocusedColor = Color.FromArgb(94, 148, 255);
+            guna2ComboBox2.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            guna2ComboBox2.Font = new Font("Segoe UI", 10F);
+            guna2ComboBox2.ForeColor = Color.FromArgb(68, 88, 112);
+            guna2ComboBox2.ItemHeight = 30;
+            guna2ComboBox2.Items.AddRange(new object[] { "Select Color ", "Red", "Green", "Yellow" });
+            guna2ComboBox2.Location = new Point(267, 17);
+            guna2ComboBox2.Name = "guna2ComboBox2";
+            guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            guna2ComboBox2.Size = new Size(246, 36);
+            guna2ComboBox2.StartIndex = 0;
+            guna2ComboBox2.TabIndex = 8;
             // 
             // guna2ComboBox1
             // 
@@ -527,8 +551,8 @@
             guna2ComboBox1.Font = new Font("Segoe UI", 10F);
             guna2ComboBox1.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox1.ItemHeight = 30;
-            guna2ComboBox1.Items.AddRange(new object[] { "Select Color System", "Gray-Scale Mode", "RGB Mode", "CMY Mode", "HSV Mode", "YcBCr Mode", "YUV Mode", "L*a*b Mode" });
-            guna2ComboBox1.Location = new Point(447, 17);
+            guna2ComboBox1.Items.AddRange(new object[] { "Select Color System", "Gray-Scale Mode", "CMY Mode", "Plasma Mode", "Hot Mode", "Jet Mode", "Pink Mode", "Bone Mode" });
+            guna2ComboBox1.Location = new Point(567, 17);
             guna2ComboBox1.Name = "guna2ComboBox1";
             guna2ComboBox1.ShadowDecoration.CustomizableEdges = customizableEdges32;
             guna2ComboBox1.Size = new Size(246, 36);
@@ -554,7 +578,7 @@
             guna2Button9.ImageAlign = HorizontalAlignment.Left;
             guna2Button9.ImageOffset = new Point(5, 0);
             guna2Button9.ImageSize = new Size(30, 30);
-            guna2Button9.Location = new Point(267, 6);
+            guna2Button9.Location = new Point(934, 6);
             guna2Button9.Name = "guna2Button9";
             guna2Button9.ShadowDecoration.CustomizableEdges = customizableEdges34;
             guna2Button9.Size = new Size(174, 56);
@@ -653,6 +677,7 @@
             ResumeLayout(false);
         }
 
+
         #endregion
 
         private PictureBox pictureBox1;
@@ -680,5 +705,6 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button14;
         private Guna.UI2.WinForms.Guna2Button guna2Button15;
         private Guna.UI2.WinForms.Guna2Button guna2Button16;
+        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox2;
     }
 }
