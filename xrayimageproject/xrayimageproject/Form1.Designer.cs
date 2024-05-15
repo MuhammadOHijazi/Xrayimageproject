@@ -530,7 +530,7 @@ namespace xrayimageproject
             guna2ComboBox2.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox2.ItemHeight = 30;
             guna2ComboBox2.Items.AddRange(new object[] { "Select Color ", "Red", "Green", "Yellow" });
-            guna2ComboBox2.Location = new Point(236, 17);
+            guna2ComboBox2.Location = new Point(267, 17);
             guna2ComboBox2.Name = "guna2ComboBox2";
             guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges30;
             guna2ComboBox2.Size = new Size(246, 36);
