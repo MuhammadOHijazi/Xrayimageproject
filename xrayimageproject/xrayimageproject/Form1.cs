@@ -367,5 +367,14 @@ namespace xrayimageproject
             Bitmap resultImage = HighAndLowPassFilter.ApplyFilter(pictureBox1.Image, cutoffFrequency, HighAndLowPassFilter.FilterType.Low);
             pictureBox3.Image = resultImage;
         }
+
+        private void guna2Button15_Click(object sender, EventArgs e)
+        {
+            
+            string outputPath = "..\\..\\..\\compressedImages\\compressed" + 
+                System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+            int quality = 75;
+            Compression.CompressJpegImage(pictureBox1.Image, outputPath, quality);
+        }
     }
 }
