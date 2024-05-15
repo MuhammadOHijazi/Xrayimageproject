@@ -419,6 +419,7 @@
             guna2Button12.TabIndex = 8;
             guna2Button12.Text = "Export";
             guna2Button12.TextOffset = new Point(10, 0);
+            guna2Button12.Click += guna2Button12_Click;
             // 
             // guna2Button11
             // 

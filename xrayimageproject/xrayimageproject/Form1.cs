@@ -370,11 +370,16 @@ namespace xrayimageproject
 
         private void guna2Button15_Click(object sender, EventArgs e)
         {
-            
-            string outputPath = "..\\..\\..\\compressedImages\\compressed" + 
+
+            string outputPath = "..\\..\\..\\compressedImages\\compressed" +
                 System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
             int quality = 75;
             Compression.CompressJpegImage(pictureBox1.Image, outputPath, quality);
+        }
+
+        private void guna2Button12_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
