@@ -19,16 +19,6 @@ namespace xrayimageproject
             //CaptionOnImage coi = new();
             //CaptionOnImage.SetCaption(inputPath, outputpath, "patient name");
 
-            //// cCreating the report end exporting as pdf
-            //string name = "Abu Yani";
-            //string id = "1001";
-            //string info = "Has a medium tumor";
-            //string imgPath = outputpath;
-            //string pdfOutputPath = "C:\\Users\\HP\\Documents\\Years To Go\\4th Year\\2nd Semester\\Multimedia\\P\\project\\D Code\\xrayimageproject\\xrayimageproject\\assets\\outputs\\patient_report.pdf";
-
-            //ReportGeneration repoGene = new();
-            //repoGene.GenerateReport(name, id, info, imgPath, pdfOutputPath);
-
 
             Application.Run(new Form1());
         }

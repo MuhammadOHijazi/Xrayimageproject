@@ -1,16 +1,17 @@
-using System.Drawing.Imaging;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing;
-using AForge.Imaging;
 using AForge.Imaging.Filters;
+using System.ComponentModel;
+using System.Drawing.Imaging;
+
 
 namespace xrayimageproject
 {
     public partial class Form1 : Form
     {
         // Patient ID
-        int id = 10001;
+        static int id = 1000;
 
         // Declare variables to track the selection
         bool isSelecting = false;
@@ -230,15 +231,13 @@ namespace xrayimageproject
         }
         private Color MapIntensityToColor(int intensity)
         {
-            // Clamp the intensity to ensure it's within the 0-255 range
             intensity = Math.Clamp(intensity, 0, 255);
 
-            // Calculate the color component values, ensuring they do not exceed 255
             int colorValue = intensity * 2;
-            colorValue = Math.Min(colorValue, 255); // Clamp the value to a maximum of 255
+            colorValue = Math.Min(colorValue, 255);
 
             // Return the color with the clamped values
-            return Color.FromArgb(255, colorValue, colorValue); // G
+            return Color.FromArgb(255, colorValue, colorValue);
         }
 
         private float[,] GetBrightnessMatrix(Bitmap grayscaleImage, Rectangle selection)
@@ -294,7 +293,6 @@ namespace xrayimageproject
         }
         private void InitializeComboBox()
         {
-            // Assuming 'guna2ComboBox1' is your Guna UI2 ComboBox
             guna2ComboBox1.SelectedIndexChanged += new EventHandler(guna2ComboBox1_SelectedIndexChanged);
         }
         private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -354,11 +352,31 @@ namespace xrayimageproject
             MessageBox.Show("Image copied to clipboard. Please paste it into your social media post.");
 
         }
+
+        
+        // Generating Report
+        private void guna2Button12_Click(object sender, EventArgs e)
+        {
+            ReportInputForm inputForm = new();
+            DialogResult result = inputForm.ShowDialog(); // Show as a modal dialog
+
+            if (result == DialogResult.OK)
+            {
+                // Getting the input from the previous dialog and the current image
+                string patientName = inputForm.txtPatientName.Text; 
+                id++;
+                string diagnosisText = inputForm.txtDiagnosis.Text;
+                Image image = pictureBox1.Image;
+
+                ReportGeneration repoGene = new();
+                repoGene.GenerateReport(patientName, id.ToString(), diagnosisText, image);
+            }
+        }
         // Fourier button
         private void guna2Button13_Click(object sender, EventArgs e)
         {
             float cutoffFrequency = 0.0f;
-            Bitmap resultImage = HighPassFilter.ApplyHighPassFilter(pictureBox1.Image, cutoffFrequency);
+            Bitmap resultImage = HighAndLowPassFilter.ApplyFilter(pictureBox1.Image, cutoffFrequency, HighAndLowPassFilter.FilterType.High);
             pictureBox3.Image = resultImage;
         }
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -366,79 +384,103 @@ namespace xrayimageproject
 
         }
 
-        // Export PDF Report
-        private void ExpoertPDF(object sender, EventArgs e)
+        private void guna2Button14_Click(object sender, EventArgs e)
         {
-            string name = pictureBox1.Image.ToString();
-            id++;
-            string info = "Has a medium tumor";
-            string imgPath = outputpath;
-            string pdfOutputPath = "C:\\Users\\HP\\Documents\\Years To Go\\4th Year\\2nd Semester\\Multimedia\\P\\project\\D Code\\xrayimageproject\\xrayimageproject\\assets\\outputs\\patient_report.pdf";
+            float cutoffFrequency = 30.0f;
+            Bitmap resultImage = HighAndLowPassFilter.ApplyFilter(pictureBox1.Image, cutoffFrequency, HighAndLowPassFilter.FilterType.Low);
+            pictureBox3.Image = resultImage;
+        }
 
-
+        private void guna2Button15_Click(object sender, EventArgs e)
+        {
+            
+            string outputPath = "..\\..\\..\\compressedImages\\compressed" + 
+                System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+            int quality = 75;
+            Compression.CompressJpegImage(pictureBox1.Image, outputPath, quality);
         }
     }
-    public class HighPassFilter
+    partial class ReportInputForm:Form
     {
-        public static Bitmap ApplyHighPassFilter(System.Drawing.Image image, float cutoffFrequency)
+        public ReportInputForm() => InitializeComponent();
+
+        private void InitializeComponent()
         {
-            // Load the image
-            Bitmap sourceImage = new Bitmap(image);
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtPatientName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtDiagnosis = new System.Windows.Forms.TextBox();
+            this.btnGenerateReport = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            
+            // label1
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(30, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 15);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Patient Name:";
+             
+            // txtPatientName
+            this.txtPatientName.Location = new System.Drawing.Point(120, 27);
+            this.txtPatientName.Name = "txtPatientName";
+            this.txtPatientName.Size = new System.Drawing.Size(200, 23);
+            this.txtPatientName.TabIndex = 1;
+             
+            // label2
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(30, 70);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Diagnosis:";
+             
+            // txtDiagnosis
+            this.txtDiagnosis.Location = new System.Drawing.Point(120, 67);
+            this.txtDiagnosis.Multiline = true;
+            this.txtDiagnosis.Name = "txtDiagnosis";
+            this.txtDiagnosis.Size = new System.Drawing.Size(200, 100);
+            this.txtDiagnosis.TabIndex = 3;
 
-            // Convert the image to grayscale the parameters are the standard coefficients
-            Grayscale grayscaleFilter = new Grayscale(0.2125, 0.7154, 0.0721);
-            Bitmap grayImage = grayscaleFilter.Apply(sourceImage);
+            // btnGenerateReport
+            this.btnGenerateReport.Location = new System.Drawing.Point(120, 180);
+            this.btnGenerateReport.Name = "btnGenerateReport";
+            this.btnGenerateReport.Size = new System.Drawing.Size(120, 30);
+            this.btnGenerateReport.TabIndex = 4;
+            this.btnGenerateReport.Text = "Generate Report";
+            this.btnGenerateReport.UseVisualStyleBackColor = true;
+            this.btnGenerateReport.Click += new System.EventHandler(btnGenerateReport_Click);
 
-            // Apply FFT to the grayscale image
-            ComplexImage complexImage = ComplexImage.FromBitmap(grayImage);
-            complexImage.ForwardFourierTransform();
+            // InputForm
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(354, 231);
+            this.Controls.Add(this.btnGenerateReport);
+            this.Controls.Add(this.txtDiagnosis);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtPatientName);
+            this.Controls.Add(this.label1);
+            this.Name = "InputForm";
+            this.Text = "Enter Patient Information";
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
-            // Create a high-pass filter mask
-            int width = grayImage.Width;
-            int height = grayImage.Height;
-            float[,] hpfMask = CreateHighPassFilterMask(width, height, cutoffFrequency);
-
-            // Apply the high-pass filter mask to the FFT image
-            ApplyMaskToComplexImage(complexImage, hpfMask);
-
-            // Perform an inverse Fourier transform
-            complexImage.BackwardFourierTransform();
-
-            // Convert the complex image back to bitmap
-            Bitmap hpfImage = complexImage.ToBitmap();
-
-            return hpfImage;
         }
-        private static float[,] CreateHighPassFilterMask(int width, int height, float cutoffFrequency)
-        {
-            float[,] mask = new float[width, height];
-            int cx = width / 2;
-            int cy = height / 2;
 
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    double distance = Math.Sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
-                    mask[x, y] = distance > cutoffFrequency ? 1 : 0;
-                }
-            }
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox txtPatientName;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox txtDiagnosis;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox imgPath;
+        public System.Windows.Forms.Button btnGenerateReport;
 
-            return mask;
+        private void btnGenerateReport_Click(object sender, EventArgs e)
+        {           
+            this.DialogResult = DialogResult.OK; 
+            this.Close(); 
         }
-        private static void ApplyMaskToComplexImage(ComplexImage complexImage, float[,] mask)
-        {
-            int width = complexImage.Width;
-            int height = complexImage.Height;
 
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    complexImage.Data[x, y].Re *= mask[x, y];
-                    complexImage.Data[x, y].Im *= mask[x, y];
-                }
-            }
-        }
+
     }
 }
