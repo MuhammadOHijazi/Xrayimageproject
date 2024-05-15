@@ -133,6 +133,7 @@ namespace xrayimageproject
         {
 
         }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -296,9 +297,9 @@ namespace xrayimageproject
             if (guna2ComboBox1.SelectedItem.ToString() == "Gray-Scale Mode")
             {
                 Console.WriteLine("Gray-Scale Mode Selected");
-                        Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
-                        Bitmap grayscaleBitmap = ConvertToGrayscale(originalBitmap);
-                        pictureBox1.Image = grayscaleBitmap;
+                Bitmap originalBitmap = new Bitmap(pictureBox1.Image);
+                Bitmap grayscaleBitmap = ConvertToGrayscale(originalBitmap);
+                pictureBox1.Image = grayscaleBitmap;
             }
             if (guna2ComboBox1.SelectedItem.ToString() == "RGB Mode")
             {
