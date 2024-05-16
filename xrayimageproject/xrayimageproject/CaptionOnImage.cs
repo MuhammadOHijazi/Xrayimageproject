@@ -11,37 +11,32 @@ namespace xrayimageproject
     internal class CaptionOnImage
     {
         
-        public static void SetCaption(String inputPath, String outputPath, String patientName)
+        public static void SetCaption(Image image, string outputPath, String caption)
         {
 
             try
             {
-                // Load the image
-                Image image = Image.FromFile(inputPath);
-
-                // Get Last Modified Date
-                FileInfo fileInfo = new(inputPath);
-                DateTime lastModified = fileInfo.LastWriteTime;
-                String lastModifiedText = lastModified.ToString("yyyy-MM-dd HH:mm:ss");
+                // Get Current Modifying Date
+                String lastModifiedText = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                 // Create a Graphics object
                 using (Graphics graphics = Graphics.FromImage(image))
                 {                    
                     Font font = new("Calibri", 40, FontStyle.Bold, GraphicsUnit.Pixel);
 
-                    Brush patientNameBrush = new SolidBrush(Color.Gold);
+                    Brush captionBrush = new SolidBrush(Color.Gold);
                     Brush modifiedDateBrush = new SolidBrush(Color.Red);
 
                     // Set starting point for name
-                    PointF patientNamePoint = new(50, 50);
+                    PointF captionPoint = new(10, 10);
 
                     // Calculate the size of the modified date text
                     SizeF textSize = graphics.MeasureString(lastModifiedText, font);
                     // Position the modified date text dynamically
-                    PointF modifiedDatePoint = new(image.Width - textSize.Width - 50, image.Height - textSize.Height - 50);
+                    PointF modifiedDatePoint = new(image.Width - textSize.Width - 10, image.Height - textSize.Height - 10);
 
                     // Draw the text
-                    graphics.DrawString(patientName, font, patientNameBrush, patientNamePoint);
+                    graphics.DrawString(caption, font, captionBrush, captionPoint);
                     graphics.DrawString(lastModifiedText, font, modifiedDateBrush, modifiedDatePoint);
 
                 }

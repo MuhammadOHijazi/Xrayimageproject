@@ -65,6 +65,8 @@ namespace xrayimageproject
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
             guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
@@ -76,6 +78,7 @@ namespace xrayimageproject
             label1 = new Label();
             pictureBox2 = new PictureBox();
             panel2 = new Panel();
+            guna2Button18 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button17 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button16 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button15 = new Guna.UI2.WinForms.Guna2Button();
@@ -260,7 +263,7 @@ namespace xrayimageproject
             label1.Font = new Font("Century Gothic", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(69, 9);
             label1.Name = "label1";
-            label1.Size = new Size(328, 34);
+            label1.Size = new Size(262, 26);
             label1.TabIndex = 5;
             label1.Text = "X-Ray Images analyzer";
             label1.Click += label1_Click;
@@ -277,6 +280,7 @@ namespace xrayimageproject
             // 
             // panel2
             // 
+            panel2.Controls.Add(guna2Button18);
             panel2.Controls.Add(guna2Button17);
             panel2.Controls.Add(guna2Button16);
             panel2.Controls.Add(guna2Button15);
@@ -293,10 +297,36 @@ namespace xrayimageproject
             panel2.Size = new Size(180, 662);
             panel2.TabIndex = 3;
             // 
+            // guna2Button18
+            // 
+            guna2Button18.BorderRadius = 20;
+            guna2Button18.CustomizableEdges = customizableEdges13;
+            guna2Button18.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button18.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button18.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button18.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button18.FillColor = SystemColors.Control;
+            guna2Button18.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2Button18.ForeColor = Color.Gray;
+            guna2Button18.HoverState.BorderColor = Color.FromArgb(30, 170, 231);
+            guna2Button18.HoverState.FillColor = Color.FromArgb(30, 170, 231);
+            guna2Button18.HoverState.ForeColor = Color.White;
+            guna2Button18.Image = Properties.Resources.icons8_add_properties_96;
+            guna2Button18.ImageAlign = HorizontalAlignment.Left;
+            guna2Button18.ImageSize = new Size(35, 35);
+            guna2Button18.Location = new Point(6, 194);
+            guna2Button18.Name = "guna2Button18";
+            guna2Button18.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2Button18.Size = new Size(174, 56);
+            guna2Button18.TabIndex = 15;
+            guna2Button18.Text = "Add Caption";
+            guna2Button18.TextOffset = new Point(10, 0);
+            guna2Button18.Click += guna2Button18_Click;
+            // 
             // guna2Button17
             // 
             guna2Button17.BorderRadius = 20;
-            guna2Button17.CustomizableEdges = customizableEdges13;
+            guna2Button17.CustomizableEdges = customizableEdges15;
             guna2Button17.DisabledState.BorderColor = Color.DarkGray;
             guna2Button17.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button17.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -311,19 +341,19 @@ namespace xrayimageproject
             guna2Button17.ImageAlign = HorizontalAlignment.Left;
             guna2Button17.ImageOffset = new Point(5, 0);
             guna2Button17.ImageSize = new Size(30, 30);
-            guna2Button17.Location = new Point(3, 588);
+            guna2Button17.Location = new Point(0, 605);
             guna2Button17.Name = "guna2Button17";
-            guna2Button17.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2Button17.ShadowDecoration.CustomizableEdges = customizableEdges16;
             guna2Button17.Size = new Size(174, 56);
             guna2Button17.TabIndex = 14;
             guna2Button17.Text = "Compress Files";
-            guna2Button17.TextOffset = new Point(10, 0);
+            guna2Button17.TextOffset = new Point(13, 0);
             guna2Button17.Click += guna2Button17_Click;
             // 
             // guna2Button16
             // 
             guna2Button16.BorderRadius = 20;
-            guna2Button16.CustomizableEdges = customizableEdges13;
+            guna2Button16.CustomizableEdges = customizableEdges15;
             guna2Button16.DisabledState.BorderColor = Color.DarkGray;
             guna2Button16.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button16.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -336,15 +366,14 @@ namespace xrayimageproject
             guna2Button16.HoverState.ForeColor = Color.White;
             guna2Button16.Image = (Image)resources.GetObject("guna2Button16.Image");
             guna2Button16.ImageAlign = HorizontalAlignment.Left;
-            guna2Button16.ImageOffset = new Point(5, 0);
             guna2Button16.ImageSize = new Size(30, 30);
             guna2Button16.Location = new Point(3, 525);
             guna2Button16.Name = "guna2Button16";
-            guna2Button16.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2Button16.ShadowDecoration.CustomizableEdges = customizableEdges16;
             guna2Button16.Size = new Size(174, 56);
             guna2Button16.TabIndex = 13;
             guna2Button16.Text = "Compress Audio";
-            guna2Button16.TextOffset = new Point(10, 0);
+            guna2Button16.TextOffset = new Point(14, 0);
             guna2Button16.Click += guna2Button16_Click;
             // 
             // guna2Button15
@@ -500,7 +529,7 @@ namespace xrayimageproject
             guna2Button11.ImageAlign = HorizontalAlignment.Left;
             guna2Button11.ImageOffset = new Point(5, 0);
             guna2Button11.ImageSize = new Size(30, 30);
-            guna2Button11.Location = new Point(3, 153);
+            guna2Button11.Location = new Point(3, 132);
             guna2Button11.Name = "guna2Button11";
             guna2Button11.ShadowDecoration.CustomizableEdges = customizableEdges26;
             guna2Button11.Size = new Size(174, 56);
@@ -527,7 +556,7 @@ namespace xrayimageproject
             guna2Button7.ImageAlign = HorizontalAlignment.Left;
             guna2Button7.ImageOffset = new Point(5, 0);
             guna2Button7.ImageSize = new Size(30, 30);
-            guna2Button7.Location = new Point(3, 91);
+            guna2Button7.Location = new Point(3, 68);
             guna2Button7.Name = "guna2Button7";
             guna2Button7.ShadowDecoration.CustomizableEdges = customizableEdges28;
             guna2Button7.Size = new Size(174, 56);
@@ -554,7 +583,7 @@ namespace xrayimageproject
             guna2Button2.ImageAlign = HorizontalAlignment.Left;
             guna2Button2.ImageOffset = new Point(5, 0);
             guna2Button2.ImageSize = new Size(30, 30);
-            guna2Button2.Location = new Point(3, 29);
+            guna2Button2.Location = new Point(3, 6);
             guna2Button2.Name = "guna2Button2";
             guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges30;
             guna2Button2.Size = new Size(174, 56);
@@ -733,5 +762,6 @@ namespace xrayimageproject
         private Guna.UI2.WinForms.Guna2Button guna2Button16;
         private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox2;
         private Guna.UI2.WinForms.Guna2Button guna2Button17;
+        private Guna.UI2.WinForms.Guna2Button guna2Button18;
     }
 }
