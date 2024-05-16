@@ -310,13 +310,13 @@ namespace xrayimageproject
             guna2Button18.HoverState.ForeColor = Color.White;
             guna2Button18.Image = Properties.Resources.icons8_add_properties_96;
             guna2Button18.ImageAlign = HorizontalAlignment.Left;
-            guna2Button18.ImageSize = new Size(35, 35);
+            guna2Button18.ImageSize = new Size(30, 30);
             guna2Button18.Location = new Point(0, 192);
             guna2Button18.Name = "guna2Button18";
             guna2Button18.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            guna2Button18.Size = new Size(174, 56);
+            guna2Button18.Size = new Size(184, 56);
             guna2Button18.TabIndex = 15;
-            guna2Button18.Text = "Add Caption";
+            guna2Button18.Text = "   Add Caption";
             guna2Button18.TextOffset = new Point(10, 0);
             guna2Button18.Click += guna2Button18_Click;
             // 
@@ -336,15 +336,14 @@ namespace xrayimageproject
             guna2Button17.HoverState.ForeColor = Color.White;
             guna2Button17.Image = (Image)resources.GetObject("guna2Button17.Image");
             guna2Button17.ImageAlign = HorizontalAlignment.Left;
-            guna2Button17.ImageOffset = new Point(5, 0);
             guna2Button17.ImageSize = new Size(30, 30);
             guna2Button17.Location = new Point(3, 564);
             guna2Button17.Name = "guna2Button17";
             guna2Button17.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2Button17.Size = new Size(174, 56);
+            guna2Button17.Size = new Size(169, 56);
             guna2Button17.TabIndex = 14;
             guna2Button17.Text = "Compress Files";
-            guna2Button17.TextOffset = new Point(13, 0);
+            guna2Button17.TextOffset = new Point(10, 0);
             guna2Button17.Click += guna2Button17_Click;
             // 
             // guna2Button16
@@ -367,10 +366,10 @@ namespace xrayimageproject
             guna2Button16.Location = new Point(3, 502);
             guna2Button16.Name = "guna2Button16";
             guna2Button16.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2Button16.Size = new Size(174, 56);
+            guna2Button16.Size = new Size(181, 56);
             guna2Button16.TabIndex = 13;
             guna2Button16.Text = "Compress Audio";
-            guna2Button16.TextOffset = new Point(14, 0);
+            guna2Button16.TextOffset = new Point(10, 0);
             guna2Button16.Click += guna2Button16_Click;
             // 
             // guna2Button15
@@ -389,12 +388,11 @@ namespace xrayimageproject
             guna2Button15.HoverState.ForeColor = Color.White;
             guna2Button15.Image = (Image)resources.GetObject("guna2Button15.Image");
             guna2Button15.ImageAlign = HorizontalAlignment.Left;
-            guna2Button15.ImageOffset = new Point(5, 0);
             guna2Button15.ImageSize = new Size(30, 30);
             guna2Button15.Location = new Point(3, 440);
             guna2Button15.Name = "guna2Button15";
             guna2Button15.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2Button15.Size = new Size(174, 56);
+            guna2Button15.Size = new Size(181, 56);
             guna2Button15.TabIndex = 12;
             guna2Button15.Text = "Compress";
             guna2Button15.TextOffset = new Point(10, 0);
@@ -416,12 +414,11 @@ namespace xrayimageproject
             guna2Button14.HoverState.ForeColor = Color.White;
             guna2Button14.Image = (Image)resources.GetObject("guna2Button14.Image");
             guna2Button14.ImageAlign = HorizontalAlignment.Left;
-            guna2Button14.ImageOffset = new Point(5, 0);
             guna2Button14.ImageSize = new Size(30, 30);
             guna2Button14.Location = new Point(3, 378);
             guna2Button14.Name = "guna2Button14";
             guna2Button14.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            guna2Button14.Size = new Size(174, 56);
+            guna2Button14.Size = new Size(184, 56);
             guna2Button14.TabIndex = 11;
             guna2Button14.Text = "LPF Fourier";
             guna2Button14.TextOffset = new Point(10, 0);
@@ -443,12 +440,11 @@ namespace xrayimageproject
             guna2Button13.HoverState.ForeColor = Color.White;
             guna2Button13.Image = (Image)resources.GetObject("guna2Button13.Image");
             guna2Button13.ImageAlign = HorizontalAlignment.Left;
-            guna2Button13.ImageOffset = new Point(5, 0);
             guna2Button13.ImageSize = new Size(30, 30);
             guna2Button13.Location = new Point(3, 316);
             guna2Button13.Name = "guna2Button13";
             guna2Button13.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            guna2Button13.Size = new Size(174, 56);
+            guna2Button13.Size = new Size(181, 56);
             guna2Button13.TabIndex = 10;
             guna2Button13.Text = "HPF Fourier";
             guna2Button13.TextOffset = new Point(10, 0);
@@ -470,12 +466,11 @@ namespace xrayimageproject
             guna2Button10.HoverState.ForeColor = Color.White;
             guna2Button10.Image = (Image)resources.GetObject("guna2Button10.Image");
             guna2Button10.ImageAlign = HorizontalAlignment.Left;
-            guna2Button10.ImageOffset = new Point(5, 0);
             guna2Button10.ImageSize = new Size(30, 30);
             guna2Button10.Location = new Point(3, 254);
             guna2Button10.Name = "guna2Button10";
             guna2Button10.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            guna2Button10.Size = new Size(174, 56);
+            guna2Button10.Size = new Size(181, 56);
             guna2Button10.TabIndex = 9;
             guna2Button10.Text = "Copy";
             guna2Button10.TextOffset = new Point(10, 0);
@@ -497,12 +492,11 @@ namespace xrayimageproject
             guna2Button12.HoverState.ForeColor = Color.White;
             guna2Button12.Image = (Image)resources.GetObject("guna2Button12.Image");
             guna2Button12.ImageAlign = HorizontalAlignment.Left;
-            guna2Button12.ImageOffset = new Point(5, 0);
             guna2Button12.ImageSize = new Size(30, 30);
             guna2Button12.Location = new Point(3, 130);
             guna2Button12.Name = "guna2Button12";
             guna2Button12.ShadowDecoration.CustomizableEdges = customizableEdges24;
-            guna2Button12.Size = new Size(174, 56);
+            guna2Button12.Size = new Size(181, 56);
             guna2Button12.TabIndex = 8;
             guna2Button12.Text = "Export";
             guna2Button12.TextOffset = new Point(10, 0);
@@ -524,12 +518,11 @@ namespace xrayimageproject
             guna2Button11.HoverState.ForeColor = Color.White;
             guna2Button11.Image = (Image)resources.GetObject("guna2Button11.Image");
             guna2Button11.ImageAlign = HorizontalAlignment.Left;
-            guna2Button11.ImageOffset = new Point(5, 0);
             guna2Button11.ImageSize = new Size(30, 30);
             guna2Button11.Location = new Point(3, 68);
             guna2Button11.Name = "guna2Button11";
             guna2Button11.ShadowDecoration.CustomizableEdges = customizableEdges26;
-            guna2Button11.Size = new Size(174, 56);
+            guna2Button11.Size = new Size(181, 56);
             guna2Button11.TabIndex = 7;
             guna2Button11.Text = "Save As";
             guna2Button11.TextOffset = new Point(10, 0);
@@ -551,12 +544,11 @@ namespace xrayimageproject
             guna2Button2.HoverState.ForeColor = Color.White;
             guna2Button2.Image = (Image)resources.GetObject("guna2Button2.Image");
             guna2Button2.ImageAlign = HorizontalAlignment.Left;
-            guna2Button2.ImageOffset = new Point(5, 0);
             guna2Button2.ImageSize = new Size(30, 30);
             guna2Button2.Location = new Point(3, 6);
             guna2Button2.Name = "guna2Button2";
             guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges28;
-            guna2Button2.Size = new Size(174, 56);
+            guna2Button2.Size = new Size(181, 56);
             guna2Button2.TabIndex = 4;
             guna2Button2.Text = "Import";
             guna2Button2.TextOffset = new Point(10, 0);
@@ -591,7 +583,6 @@ namespace xrayimageproject
             guna2Button19.HoverState.ForeColor = Color.White;
             guna2Button19.Image = (Image)resources.GetObject("guna2Button19.Image");
             guna2Button19.ImageAlign = HorizontalAlignment.Left;
-            guna2Button19.ImageOffset = new Point(5, 0);
             guna2Button19.ImageSize = new Size(30, 30);
             guna2Button19.Location = new Point(575, 6);
             guna2Button19.Name = "guna2Button19";
@@ -660,7 +651,6 @@ namespace xrayimageproject
             guna2Button9.HoverState.ForeColor = Color.White;
             guna2Button9.Image = (Image)resources.GetObject("guna2Button9.Image");
             guna2Button9.ImageAlign = HorizontalAlignment.Left;
-            guna2Button9.ImageOffset = new Point(5, 0);
             guna2Button9.ImageSize = new Size(30, 30);
             guna2Button9.Location = new Point(934, 6);
             guna2Button9.Name = "guna2Button9";
