@@ -48,6 +48,8 @@
   <ItemGroup>
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.6" />
     <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="NumpyDotNet" Version="0.9.86.2" />
+    <PackageReference Include="NumSharp" Version="0.30.0" />
   </ItemGroup>
 
   <ItemGroup>
