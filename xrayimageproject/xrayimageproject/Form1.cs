@@ -908,10 +908,7 @@ namespace xrayimageproject
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-
-
         }
-
         private void guna2Button7_Click_1(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -920,7 +917,6 @@ namespace xrayimageproject
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     pictureBox3.Image = new Bitmap(openFileDialog.FileName);
-
                 }
             }
             Bitmap FirstImage = (Bitmap)pictureBox1.Image;
@@ -928,6 +924,8 @@ namespace xrayimageproject
             int minWidth = Math.Min(FirstImage.Width, SecondImage.Width);
             int minHeight = Math.Min(FirstImage.Height, SecondImage.Height);
 
+            int firstPixels = 0;
+            int secondPixels = 0;
             for (int x = 0; x < minWidth; x++)
             {
                 for (int y = 0; y < minHeight; y++)
@@ -944,18 +942,28 @@ namespace xrayimageproject
                     }
                     if (FirstBrighteness>SecondBrighteness)
                     {
-                        MessageBox.Show("The Treatment Goes Well");
-                        return;
+                        firstPixels++;
                     }
                     if (FirstBrighteness<SecondBrighteness)
                     {
-                        MessageBox.Show("The disease is progressing");
-                        return;
+                        secondPixels++;
                     }
                 }
             }
-            MessageBox.Show("There is no Change");
-            return;
+            if (firstPixels > secondPixels) {
+                MessageBox.Show("The Treatment Goes Well");
+                return;
+            }
+            else if (firstPixels<secondPixels)
+            {
+                MessageBox.Show("The disease is progressing");
+                return;
+            }
+            else {
+                MessageBox.Show("There is no Change");
+                return;
+            }
+
         }
     
     }
