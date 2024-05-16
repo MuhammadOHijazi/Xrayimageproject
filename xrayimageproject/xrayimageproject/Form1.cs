@@ -580,16 +580,15 @@ namespace xrayimageproject
             pictureBox3.Image = resultImage;
         }
 
-        // compress button
+        // compress image
         private void guna2Button15_Click(object sender, EventArgs e)
         {
-
             string outputPath = "..\\..\\..\\compressedImages\\compressed" +
                 System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
             int quality = 75;
             ImageCompression.CompressJpegImage(pictureBox1.Image, outputPath, quality);
         }
-
+        // compress audio
         private void guna2Button16_Click(object sender, EventArgs e)
         {
             int compressionRate = 128000; // 128 kbps for standard voice quality.
@@ -634,6 +633,31 @@ namespace xrayimageproject
                 ReportGeneration repoGene = new();
                 repoGene.GenerateReport(patientName, id.ToString(), diagnosisText, image);
             }
+        }
+        // compress files and directories
+        private void guna2Button17_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "..\\..\\..\\";
+                openFileDialog.Filter = "pdf files (*.pdf)|*.pdf";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the path of specified file
+                    string inputPath = openFileDialog.FileName;
+
+                    // Set the output path, for example, same directory with .mp3 extension
+                    string outputPath = Path.ChangeExtension(inputPath, ".zip");
+
+                    // Call the FileAndDirectoryCompression compress method
+                    FileAndDirectoryCompression.Compress(inputPath, outputPath);
+
+                    MessageBox.Show("Compression completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
         }
     }
     partial class ReportInputForm:Form
