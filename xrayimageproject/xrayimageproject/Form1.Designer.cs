@@ -65,8 +65,6 @@ namespace xrayimageproject
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
             guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
@@ -263,7 +261,7 @@ namespace xrayimageproject
             label1.Font = new Font("Century Gothic", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(69, 9);
             label1.Name = "label1";
-            label1.Size = new Size(262, 26);
+            label1.Size = new Size(328, 34);
             label1.TabIndex = 5;
             label1.Text = "X-Ray Images analyzer";
             label1.Click += label1_Click;
@@ -314,7 +312,7 @@ namespace xrayimageproject
             guna2Button18.Image = Properties.Resources.icons8_add_properties_96;
             guna2Button18.ImageAlign = HorizontalAlignment.Left;
             guna2Button18.ImageSize = new Size(35, 35);
-            guna2Button18.Location = new Point(6, 194);
+            guna2Button18.Location = new Point(0, 175);
             guna2Button18.Name = "guna2Button18";
             guna2Button18.ShadowDecoration.CustomizableEdges = customizableEdges14;
             guna2Button18.Size = new Size(174, 56);
@@ -502,7 +500,7 @@ namespace xrayimageproject
             guna2Button12.ImageAlign = HorizontalAlignment.Left;
             guna2Button12.ImageOffset = new Point(5, 0);
             guna2Button12.ImageSize = new Size(30, 30);
-            guna2Button12.Location = new Point(3, 215);
+            guna2Button12.Location = new Point(0, 224);
             guna2Button12.Name = "guna2Button12";
             guna2Button12.ShadowDecoration.CustomizableEdges = customizableEdges24;
             guna2Button12.Size = new Size(174, 56);
@@ -529,7 +527,7 @@ namespace xrayimageproject
             guna2Button11.ImageAlign = HorizontalAlignment.Left;
             guna2Button11.ImageOffset = new Point(5, 0);
             guna2Button11.ImageSize = new Size(30, 30);
-            guna2Button11.Location = new Point(3, 132);
+            guna2Button11.Location = new Point(0, 114);
             guna2Button11.Name = "guna2Button11";
             guna2Button11.ShadowDecoration.CustomizableEdges = customizableEdges26;
             guna2Button11.Size = new Size(174, 56);
@@ -556,7 +554,7 @@ namespace xrayimageproject
             guna2Button7.ImageAlign = HorizontalAlignment.Left;
             guna2Button7.ImageOffset = new Point(5, 0);
             guna2Button7.ImageSize = new Size(30, 30);
-            guna2Button7.Location = new Point(3, 68);
+            guna2Button7.Location = new Point(0, 62);
             guna2Button7.Name = "guna2Button7";
             guna2Button7.ShadowDecoration.CustomizableEdges = customizableEdges28;
             guna2Button7.Size = new Size(174, 56);
@@ -583,7 +581,7 @@ namespace xrayimageproject
             guna2Button2.ImageAlign = HorizontalAlignment.Left;
             guna2Button2.ImageOffset = new Point(5, 0);
             guna2Button2.ImageSize = new Size(30, 30);
-            guna2Button2.Location = new Point(3, 6);
+            guna2Button2.Location = new Point(3, 15);
             guna2Button2.Name = "guna2Button2";
             guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges30;
             guna2Button2.Size = new Size(174, 56);
