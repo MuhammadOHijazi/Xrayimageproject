@@ -427,7 +427,6 @@ namespace xrayimageproject
                     break;
             }
         }
-
         // Coloring Systems
         // Bone ColorMap
         private void ApplyBoneColormap()
@@ -782,7 +781,7 @@ namespace xrayimageproject
                     }
                     else if (ColorMaps == 7)
                     {
-                        
+
                         Color mappedColor = greenColorMap[brighteness];
                         selectedBitmap.SetPixel(x, y, mappedColor);
                     }
@@ -912,5 +911,52 @@ namespace xrayimageproject
 
 
         }
+
+        private void guna2Button7_Click_1(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox3.Image = new Bitmap(openFileDialog.FileName);
+
+                }
+            }
+            Bitmap FirstImage = (Bitmap)pictureBox1.Image;
+            Bitmap SecondImage = (Bitmap)pictureBox3.Image;
+            int minWidth = Math.Min(FirstImage.Width, SecondImage.Width);
+            int minHeight = Math.Min(FirstImage.Height, SecondImage.Height);
+
+            for (int x = 0; x < minWidth; x++)
+            {
+                for (int y = 0; y < minHeight; y++)
+                {
+                    Color FirstImageOriginalPixel = FirstImage.GetPixel(x, y);
+                    int FirstBrighteness = CalculateBrightnessLevel(FirstImageOriginalPixel);
+
+                    Color SecondImageOriginalPixel = SecondImage.GetPixel(x, y);
+                    int SecondBrighteness = CalculateBrightnessLevel(SecondImageOriginalPixel);
+
+                    if (FirstBrighteness == SecondBrighteness)
+                    {
+                        continue;
+                    }
+                    if (FirstBrighteness>SecondBrighteness)
+                    {
+                        MessageBox.Show("The Treatment Goes Well");
+                        return;
+                    }
+                    if (FirstBrighteness<SecondBrighteness)
+                    {
+                        MessageBox.Show("The disease is progressing");
+                        return;
+                    }
+                }
+            }
+            MessageBox.Show("There is no Change");
+            return;
+        }
+    
     }
 }

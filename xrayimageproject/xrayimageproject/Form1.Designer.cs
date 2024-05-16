@@ -504,8 +504,9 @@ namespace xrayimageproject
             guna2Button7.ShadowDecoration.CustomizableEdges = customizableEdges28;
             guna2Button7.Size = new Size(174, 56);
             guna2Button7.TabIndex = 5;
-            guna2Button7.Text = "Editing";
+            guna2Button7.Text = "Compare";
             guna2Button7.TextOffset = new Point(10, 0);
+            guna2Button7.Click += guna2Button7_Click_1;
             // 
             // guna2Button2
             // 
@@ -580,7 +581,7 @@ namespace xrayimageproject
             guna2ComboBox1.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox1.ItemHeight = 30;
             guna2ComboBox1.Items.AddRange(new object[] { "Select Color System", "Gray-Scale Mode", "CMY Mode", "Plasma Mode", "Hot Mode", "Jet Mode", "Pink Mode", "Bone Mode" });
-            guna2ComboBox1.Location = new Point(567, 17);
+            guna2ComboBox1.Location = new Point(323, 17);
             guna2ComboBox1.Name = "guna2ComboBox1";
             guna2ComboBox1.ShadowDecoration.CustomizableEdges = customizableEdges32;
             guna2ComboBox1.Size = new Size(246, 36);
