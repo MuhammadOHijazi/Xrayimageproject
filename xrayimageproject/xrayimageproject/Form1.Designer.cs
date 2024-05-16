@@ -524,10 +524,7 @@ namespace xrayimageproject
             guna2Button11.HoverState.FillColor = Color.FromArgb(30, 170, 231);
             guna2Button11.HoverState.ForeColor = Color.White;
             guna2Button11.Image = (Image)resources.GetObject("guna2Button11.Image");
-            guna2Button11.ImageAlign = HorizontalAlignment.Left;
-            guna2Button11.ImageOffset = new Point(5, 0);
-            guna2Button11.ImageSize = new Size(30, 30);
-            guna2Button11.Location = new Point(0, 114);
+            guna2Button11.Location = new Point(0, 130);
             guna2Button11.Name = "guna2Button11";
             guna2Button11.ShadowDecoration.CustomizableEdges = customizableEdges26;
             guna2Button11.Size = new Size(174, 56);
@@ -550,11 +547,7 @@ namespace xrayimageproject
             guna2Button7.HoverState.BorderColor = Color.FromArgb(30, 170, 231);
             guna2Button7.HoverState.FillColor = Color.FromArgb(30, 170, 231);
             guna2Button7.HoverState.ForeColor = Color.White;
-            guna2Button7.Image = (Image)resources.GetObject("guna2Button7.Image");
-            guna2Button7.ImageAlign = HorizontalAlignment.Left;
-            guna2Button7.ImageOffset = new Point(5, 0);
-            guna2Button7.ImageSize = new Size(30, 30);
-            guna2Button7.Location = new Point(0, 62);
+            guna2Button7.Location = new Point(3, 68);
             guna2Button7.Name = "guna2Button7";
             guna2Button7.ShadowDecoration.CustomizableEdges = customizableEdges28;
             guna2Button7.Size = new Size(174, 56);
@@ -578,10 +571,7 @@ namespace xrayimageproject
             guna2Button2.HoverState.FillColor = Color.FromArgb(30, 170, 231);
             guna2Button2.HoverState.ForeColor = Color.White;
             guna2Button2.Image = (Image)resources.GetObject("guna2Button2.Image");
-            guna2Button2.ImageAlign = HorizontalAlignment.Left;
-            guna2Button2.ImageOffset = new Point(5, 0);
-            guna2Button2.ImageSize = new Size(30, 30);
-            guna2Button2.Location = new Point(3, 15);
+            guna2Button2.Location = new Point(3, 6);
             guna2Button2.Name = "guna2Button2";
             guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges30;
             guna2Button2.Size = new Size(174, 56);
