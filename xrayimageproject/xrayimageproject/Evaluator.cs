@@ -27,7 +27,7 @@ namespace xrayimageproject
             }
             if (rmse >= 25 && rmse < 50)
             {
-                return "Mild Caes";
+                return "Mild Case";
             }
             else if (rmse >= 50)
             {
@@ -41,7 +41,6 @@ namespace xrayimageproject
         {
             int width = firstImage.Width;
             int height = secondImage.Height;
-
             double error = 0;
             for (int i = 0; i < height; i++)
             {

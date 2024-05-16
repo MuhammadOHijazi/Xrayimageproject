@@ -12,11 +12,8 @@ namespace xrayimageproject
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
-            string firstPath = "C:\\Users\\number one\\Downloads\\03-copd-comparison2.jpg";
-            string secondPath = "C:\\Users\\number one\\Downloads\\03-copd-comparison.jpg";
-            Evaluator evaluator = new Evaluator(firstPath, secondPath);
-            string evaluation = evaluator.Evaluate();
-            Console.WriteLine(evaluation);
+            VoiceManager vm = new VoiceManager();
+            vm.Record();
         }
     }
 }
