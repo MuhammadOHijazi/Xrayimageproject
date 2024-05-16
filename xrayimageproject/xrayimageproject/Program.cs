@@ -12,6 +12,9 @@ namespace xrayimageproject
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
+            //DateTime searchDate = new DateTime(2024, 5, 13);
+            //DateSearcher searcher = new DateSearcher(searchDate);
+            //searcher.search();
         }
     }
 }

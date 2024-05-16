@@ -1,3 +1,5 @@
+using NAudio.Wave;
+using System.DirectoryServices;
 using System.Windows.Forms;
 
 namespace xrayimageproject
@@ -12,10 +14,10 @@ namespace xrayimageproject
         {
             InitializeComponent();
 
-            pictureBox1.MouseDown += new MouseEventHandler(pictureBox_MouseDown);
-            pictureBox1.MouseMove += new MouseEventHandler(pictureBox_MouseMove);
-            pictureBox1.MouseUp += new MouseEventHandler(pictureBox_MouseUp);
-            pictureBox1.Paint += new PaintEventHandler(pictureBox_Paint);
+            SearchBox.MouseDown += new MouseEventHandler(pictureBox_MouseDown);
+            SearchBox.MouseMove += new MouseEventHandler(pictureBox_MouseMove);
+            SearchBox.MouseUp += new MouseEventHandler(pictureBox_MouseUp);
+            SearchBox.Paint += new PaintEventHandler(pictureBox_Paint);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -37,7 +39,7 @@ namespace xrayimageproject
                 // Update the end point of the selection while the mouse moves
                 selectionEnd = e.Location;
                 // Redraw the pictureBox to show the selection rectangle
-                pictureBox1.Invalidate();
+                SearchBox.Invalidate();
             }
         }
 
@@ -95,8 +97,140 @@ namespace xrayimageproject
                 openFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    pictureBox1.Image = new Bitmap(openFileDialog.FileName);
+                    SearchBox.Image = new Bitmap(openFileDialog.FileName);
                 }
+            }
+        }
+
+        private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime date = dateTimePicker.Value;
+            DateSearcher dateSearcher = new(date);
+            var results = dateSearcher.search();
+            this.showResults(results);
+
+
+        }
+
+        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            guna2DataGridView1.ReadOnly = true;
+            this.handleClickingOnSearchResults(e);
+        }
+
+        private void handleClickingOnSearchResults(DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var cellValue = guna2DataGridView1.Rows[e.RowIndex].Cells[1].Value;
+                if (cellValue != null)
+                {
+                    string path = cellValue.ToString();
+                    this.handleMedia(path);
+                }
+            }
+        }
+
+        private void handleMedia(string path)
+        {
+            try
+            {
+                FileChecker checker = new FileChecker(path);
+                string fileType = checker.check();
+
+                if (fileType != null)
+                {
+                    if (fileType is "image")
+                    {
+                        Bitmap image = new Bitmap(path);
+                        pictureBox1.Image = image;
+                    }
+
+                    else if (fileType is "audio")
+                    {
+                        axWindowsMediaPlayer1.Visible = true;
+                        axWindowsMediaPlayer1.URL = path;
+                        axWindowsMediaPlayer1.Ctlcontrols.play();
+                        axWindowsMediaPlayer1.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(axWindowsMediaPlayer1_PlayStateChange);
+                    }
+
+
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("File Not Found Exception");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception");
+            }
+        }
+
+        private void guna2NumericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            int size = (int)numericUpDown1.Value;
+            SizeSearcher sizeSearcher = new SizeSearcher(size);
+            var results = sizeSearcher.search();
+
+            this.showResults(results);
+        }
+
+        private void showResults(List<FileInfo> results)
+        {
+            guna2DataGridView1.Rows.Clear();
+            guna2DataGridView1.Columns.Clear();
+
+            if (results.Count > 0)
+            {
+                guna2DataGridView1.Visible = true;
+                guna2DataGridView1.Columns.Add("Name", "Name");
+                guna2DataGridView1.Columns.Add("Path", "Path");
+
+
+                foreach (FileInfo result in results)
+                {
+                    guna2DataGridView1.Rows.Add(result.Name, result.Directory + "\\" + result.Name);
+                }
+
+            }
+
+            else
+            {
+                guna2DataGridView1.Visible = false;
+            }
+        }
+
+        private void guna2ImageButton1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void axAcropdf1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            if (e.newState == 1)
+            {
+                axWindowsMediaPlayer1.Visible = false;
             }
         }
     }
