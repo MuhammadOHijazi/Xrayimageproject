@@ -383,6 +383,7 @@ namespace xrayimageproject
         private void guna2Button11_Click(object sender, EventArgs e)
         {
             SaveFileDialog sf = new SaveFileDialog();
+            sf.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
             if (sf.ShowDialog() == DialogResult.OK)
             {
                 pictureBox1.Image.Save(sf.FileName);
