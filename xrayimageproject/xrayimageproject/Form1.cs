@@ -198,85 +198,147 @@ namespace xrayimageproject
 
         private void guna2Button8_Click(object sender, EventArgs e)
         {
-            Bitmap originalImage = (Bitmap)pictureBox1.Image;
-
-            Rectangle selectedArea = new Rectangle(SelectedArea.X, SelectedArea.Y, SelectedArea.Width, SelectedArea.Height);
-
-            if (selectedArea.Right > originalImage.Width || selectedArea.Bottom > originalImage.Height)
-            {
-                MessageBox.Show("Selected area is out of the image bounds.");
-                return;
-            }
-            selectedBitmap = originalImage.Clone(selectedArea, originalImage.PixelFormat);
-
-            for (int x = 0; x < selectedBitmap.Width; x++)
-            {
-                for (int y = 0; y < selectedBitmap.Height; y++)
-                {
-                    Color originalColor = selectedBitmap.GetPixel(x, y);
-                    int intensity = (originalColor.R + originalColor.G + originalColor.B) / 3;
-                    Color mappedColor = MapIntensityToColor(intensity);
-                    selectedBitmap.SetPixel(x, y, mappedColor);
-                }
-            }
-            using (Graphics g = Graphics.FromImage(originalImage))
-            {
-
-                g.DrawImage(selectedBitmap, selectedArea.Location);
-            }
-
-            selectedBitmap.Dispose();
-
-            pictureBox1.Refresh();
         }
-        private Color MapIntensityToColor(int intensity)
+
+
+        private int CalculateBrightnessLevel(Color color)
         {
-            intensity = Math.Clamp(intensity, 0, 255);
+            float brightness = (float)(0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
 
-            int colorValue = intensity * 2;
-            colorValue = Math.Min(colorValue, 255);
-
-            // Return the color with the clamped values
-            return Color.FromArgb(255, colorValue, colorValue);
-        }
-
-        private float[,] GetBrightnessMatrix(Bitmap grayscaleImage, Rectangle selection)
-        {
-            int width = selection.Width;
-            int height = selection.Height;
-            float[,] brightnessMatrix = new float[width, height];
-
-            // Lock the bitmap's bits.
-            BitmapData bmpData = grayscaleImage.LockBits(selection, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-
-            // Get the address of the first line.
-            IntPtr ptr = bmpData.Scan0;
-
-            // Declare an array to hold the bytes of the bitmap.
-            int bytes = Math.Abs(bmpData.Stride) * height;
-            byte[] rgbValues = new byte[bytes];
-
-            // Copy the RGB values into the array.
-            System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
-
-            // Calculate the brightness of each pixel within the selection.
-            for (int y = 0; y < height; y++)
+            if (brightness < 0.1)
             {
-                for (int x = 0; x < width; x++)
-                {
-                    // Calculate the offset for the current pixel.
-                    int position = (y * bmpData.Stride) + (x * 3);
-                    // Since the image is grayscale, R=G=B, so it doesn't matter which one we choose.
-                    // Normalize the brightness to be between 0 (black) and 1 (white).
-                    float brightness = rgbValues[position] / 255.0f;
-                    brightnessMatrix[x, y] = brightness;
-                }
+                return 0;
             }
-            // Unlock the bits.
-            grayscaleImage.UnlockBits(bmpData);
-
-            return brightnessMatrix;
+            else if (brightness < 0.2)
+            {
+                return 1;
+            }
+            else if (brightness < 0.3)
+            {
+                return 2;
+            }
+            else if (brightness < 0.4)
+            {
+                return 3;
+            }
+            else if (brightness < 0.5)
+            {
+                return 4;
+            }
+            else if (brightness < 0.6)
+            {
+                return 5;
+            }
+            else if (brightness < 0.7)
+            {
+                return 6;
+            }
+            else if (brightness < 0.8)
+            {
+                return 7;
+            }
+            else if (brightness < 0.9)
+            {
+                return 8;
+            }
+            else
+            {
+                return 9;
+            }
         }
+        // visual spectrum
+        private Color[] spectrumColorMap = new Color[] {
+        Color.FromArgb(0, 0, 255),     // index0  
+        Color.FromArgb(0, 64, 255),    // index1 
+    Color.FromArgb(0, 128, 255),   // index2
+    Color.FromArgb(0, 192, 255),   // index3  
+    Color.FromArgb(0, 255, 255),   // index4  
+    Color.FromArgb(0, 255, 192),   // index5  
+    Color.FromArgb(0, 255, 128),   // index6  
+    Color.FromArgb(0, 255, 64),    // index7  
+    Color.FromArgb(0, 255, 0),     // index8  
+    Color.FromArgb(128, 255, 0),   // index9  
+    Color.FromArgb(192, 255, 0),   // index10  
+    Color.FromArgb(255, 255, 0),   // index11 
+    Color.FromArgb(255, 192, 0),   // index12 
+    Color.FromArgb(255, 128, 0),   // index13 
+    Color.FromArgb(255, 64, 0),    // index14 
+    Color.FromArgb(255, 0, 0)      // index15
+};
+
+        private Color[] elevationColorMap = new Color[] {
+    Color.FromArgb(148, 0, 211),   // index0: Deep Violet
+    Color.FromArgb(138, 43, 226),  // index1: Blue Violet
+    Color.FromArgb(75, 0, 130),    // index2: Indigo
+    Color.FromArgb(0, 0, 255),     // index3: Blue
+    Color.FromArgb(0, 255, 255),   // index4: Cyan
+    Color.FromArgb(0, 255, 0),     // index5: Green
+    Color.FromArgb(173, 255, 47),  // index6: Green Yellow
+    Color.FromArgb(255, 255, 0),   // index7: Yellow
+    Color.FromArgb(255, 215, 0),   // index8: Gold
+    Color.FromArgb(255, 165, 0),   // index9: Orange
+    Color.FromArgb(255, 140, 0),   // index10: Dark Orange
+    Color.FromArgb(255, 69, 0),    // index11: Red Orange
+    Color.FromArgb(255, 0, 0),     // index12: Red
+    Color.FromArgb(255, 192, 203), // index13: Pink
+    Color.FromArgb(255, 20, 147),  // index14: Deep Pink
+    Color.FromArgb(199, 21, 133)   // index15: Medium Violet Red   
+};
+        private Color[] DiagnosticColorMap = new Color[] {
+    Color.FromArgb(0, 0, 0),       // index0: Black (Void/No Data)
+    Color.FromArgb(105, 105, 105), // index1: Dim Gray (Low Density Tissue)
+    Color.FromArgb(160, 82, 45),   // index2: Sienna (Muscle/Fat)
+    Color.FromArgb(218, 165, 32),  // index3: Golden Rod (Soft Tissue)
+    Color.FromArgb(255, 0, 255),   // index4: Magenta (High Density Tissue)
+    Color.FromArgb(65, 105, 225),  // index5: Royal Blue (Veins)
+    Color.FromArgb(30, 144, 255),  // index6: Dodger Blue (Arteries)
+    Color.FromArgb(34, 139, 34),   // index7: Forest Green (Connective Tissue)
+    Color.FromArgb(222, 184, 135), // index8: Burly Wood (Bone/Ligament)
+    Color.FromArgb(245, 245, 220), // index9: Beige (Cartilage)
+    Color.FromArgb(255, 228, 196), // index10: Bisque (Nerve)
+    Color.FromArgb(255, 69, 0),    // index11: Red Orange (Inflammation)
+    Color.FromArgb(255, 105, 180), // index12: Hot Pink (Tumor)
+    Color.FromArgb(47, 79, 79),    // index13: Dark Slate Gray (Calcification)
+    Color.FromArgb(255, 215, 0),   // index14: Gold (Contrast Agent)
+    Color.FromArgb(255, 255, 255)  // index15: White (High Intensity/Highlight)
+};
+        private Color[] medicalColorMap = new Color[] {
+    Color.FromArgb(0, 0, 0),       // index0: Black (Void/No Data)
+    Color.FromArgb(32, 32, 32),    // index1: Very Dark Gray (Lowest Intensity)
+    Color.FromArgb(64, 64, 64),    // index2: Dark Gray (Lower Intensity)
+    Color.FromArgb(96, 96, 96),    // index3: Dim Gray (Low Intensity)
+    Color.FromArgb(128, 128, 128), // index4: Gray (Medium Low Intensity)
+    Color.FromArgb(160, 160, 160), // index5: Light Gray (Neutral Intensity)
+    Color.FromArgb(192, 192, 192), // index6: Very Light Gray (Medium High Intensity)
+    Color.FromArgb(224, 224, 224), // index7: Near White (Higher Intensity)
+    Color.FromArgb(255, 0, 0),     // index8: Red (High Intensity)
+    Color.FromArgb(0, 255, 0),     // index9: Green (Normal Tissue)
+    Color.FromArgb(0, 0, 255),     // index10: Blue (Fluid/Cooling)
+    Color.FromArgb(255, 255, 0),   // index11: Yellow (Cautionary Tissue)
+    Color.FromArgb(255, 165, 0),   // index12: Orange (Inflammation)
+    Color.FromArgb(255, 105, 180), // index13: Hot Pink (Abnormal Tissue)
+    Color.FromArgb(160, 32, 240),  // index14: Purple (High Energy)
+    Color.FromArgb(255, 255, 255)  // index15: White (Bone/High Density)
+};
+        private Color[] redColorMap = new Color[] {
+    Color.FromArgb(255, 240, 240), // index0: Very Light Red
+    Color.FromArgb(255, 224, 224), // index1: Lighter Red
+    Color.FromArgb(255, 208, 208), // index2: Light Red
+    Color.FromArgb(255, 192, 192), // index3: Soft Red
+    Color.FromArgb(255, 176, 176), // index4: Salmon Red
+    Color.FromArgb(255, 160, 160), // index5: Warm Red
+    Color.FromArgb(255, 144, 144), // index6: Medium Light Red
+    Color.FromArgb(255, 128, 128), // index7: Medium Red
+    Color.FromArgb(255, 112, 112), // index8: Rich Red
+    Color.FromArgb(255, 96, 96),   // index9: Strong Red
+    Color.FromArgb(255, 80, 80),   // index10: Deep Red
+    Color.FromArgb(255, 64, 64),   // index11: Darker Red
+    Color.FromArgb(255, 48, 48),   // index12: Dark Red
+    Color.FromArgb(255, 32, 32),   // index13: Very Dark Red
+    Color.FromArgb(255, 16, 16),   // index14: Near Black Red
+    Color.FromArgb(255, 0, 0)      // index15: Pure Red
+};
+
 
         private void guna2Button9_Click(object sender, EventArgs e)
         {
@@ -291,10 +353,7 @@ namespace xrayimageproject
                 pictureBox1.Image.Save(sf.FileName);
             }
         }
-        private void InitializeComboBox()
-        {
-            guna2ComboBox1.SelectedIndexChanged += new EventHandler(guna2ComboBox1_SelectedIndexChanged);
-        }
+
         private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -635,88 +694,164 @@ namespace xrayimageproject
                 repoGene.GenerateReport(patientName, id.ToString(), diagnosisText, image);
             }
         }
-    }
-    partial class ReportInputForm:Form
-    {
-        public ReportInputForm() => InitializeComponent();
 
-        private void InitializeComponent()
+        private void ColoredSpaceSelected(int ColorMaps)
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtPatientName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtDiagnosis = new System.Windows.Forms.TextBox();
-            this.btnGenerateReport = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            
-            // label1
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Patient Name:";
-             
-            // txtPatientName
-            this.txtPatientName.Location = new System.Drawing.Point(120, 27);
-            this.txtPatientName.Name = "txtPatientName";
-            this.txtPatientName.Size = new System.Drawing.Size(200, 23);
-            this.txtPatientName.TabIndex = 1;
-             
-            // label2
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Diagnosis:";
-             
-            // txtDiagnosis
-            this.txtDiagnosis.Location = new System.Drawing.Point(120, 67);
-            this.txtDiagnosis.Multiline = true;
-            this.txtDiagnosis.Name = "txtDiagnosis";
-            this.txtDiagnosis.Size = new System.Drawing.Size(200, 100);
-            this.txtDiagnosis.TabIndex = 3;
+            Bitmap originalImage = (Bitmap)pictureBox1.Image;
 
-            // btnGenerateReport
-            this.btnGenerateReport.Location = new System.Drawing.Point(120, 180);
-            this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(120, 30);
-            this.btnGenerateReport.TabIndex = 4;
-            this.btnGenerateReport.Text = "Generate Report";
-            this.btnGenerateReport.UseVisualStyleBackColor = true;
-            this.btnGenerateReport.Click += new System.EventHandler(btnGenerateReport_Click);
+            Rectangle selectedArea = new Rectangle(SelectedArea.X, SelectedArea.Y, SelectedArea.Width, SelectedArea.Height);
 
-            // InputForm
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 231);
-            this.Controls.Add(this.btnGenerateReport);
-            this.Controls.Add(this.txtDiagnosis);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtPatientName);
-            this.Controls.Add(this.label1);
-            this.Name = "InputForm";
-            this.Text = "Enter Patient Information";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            if (selectedArea.Right > originalImage.Width || selectedArea.Bottom > originalImage.Height)
+            {
+                MessageBox.Show("Selected area is out of the image bounds.");
+                return;
+            }
+            selectedBitmap = originalImage.Clone(selectedArea, originalImage.PixelFormat);
 
+            for (int x = 0; x < selectedBitmap.Width; x++)
+            {
+                for (int y = 0; y < selectedBitmap.Height; y++)
+                {
+                    Color originalColor = selectedBitmap.GetPixel(x, y);
+                    int brighteness = CalculateBrightnessLevel(originalColor);
+                    if (ColorMaps == 1)
+                    {
+                        Color mappedColor = spectrumColorMap[brighteness];
+                        selectedBitmap.SetPixel(x, y, mappedColor);
+                    }
+                    else if (ColorMaps == 2)
+                    {
+                        Color mappedColor = elevationColorMap[brighteness];
+                        selectedBitmap.SetPixel(x, y, mappedColor);
+                    }
+                    else if (ColorMaps == 3)
+                    {
+                        // DiagnosticColorMap
+                        Color mappedColor = DiagnosticColorMap[brighteness];
+                        selectedBitmap.SetPixel(x, y, mappedColor);
+                    }
+                    else if (ColorMaps == 4)
+                    {
+                        // DiagnosticColorMap
+                        Color mappedColor = redColorMap[brighteness];
+                        selectedBitmap.SetPixel(x, y, mappedColor);
+                    }
+                }
+            }
+            using (Graphics g = Graphics.FromImage(originalImage))
+            {
+
+                g.DrawImage(selectedBitmap, selectedArea.Location);
+            }
+
+            selectedBitmap.Dispose();
+
+            pictureBox1.Refresh();
         }
 
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox txtPatientName;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox txtDiagnosis;
-        public System.Windows.Forms.Label label3;
-        public System.Windows.Forms.TextBox imgPath;
-        public System.Windows.Forms.Button btnGenerateReport;
+        private void guna2ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // visual spectrum
+            // deep violet
+            switch (guna2ComboBox2.SelectedItem.ToString())
+            {
+                case "visual spectrum":
+                    ColoredSpaceSelected(1);
+                    break;
+                case "deep violet":
+                    ColoredSpaceSelected(2);
+                    break;
+                case "Diagnostic":
+                    ColoredSpaceSelected(3);
+                    break;
+                case "Medical":
+                    ColoredSpaceSelected(4);
+                    break;
 
-        private void btnGenerateReport_Click(object sender, EventArgs e)
-        {           
-            this.DialogResult = DialogResult.OK; 
-            this.Close(); 
+            }
         }
+        partial class ReportInputForm : Form
+        {
+            public ReportInputForm() => InitializeComponent();
+
+            private void InitializeComponent()
+            {
+                this.label1 = new System.Windows.Forms.Label();
+                this.txtPatientName = new System.Windows.Forms.TextBox();
+                this.label2 = new System.Windows.Forms.Label();
+                this.txtDiagnosis = new System.Windows.Forms.TextBox();
+                this.btnGenerateReport = new System.Windows.Forms.Button();
+                this.SuspendLayout();
+
+                // label1
+                this.label1.AutoSize = true;
+                this.label1.Location = new System.Drawing.Point(30, 30);
+                this.label1.Name = "label1";
+                this.label1.Size = new System.Drawing.Size(84, 15);
+                this.label1.TabIndex = 0;
+                this.label1.Text = "Patient Name:";
+
+                // txtPatientName
+                this.txtPatientName.Location = new System.Drawing.Point(120, 27);
+                this.txtPatientName.Name = "txtPatientName";
+                this.txtPatientName.Size = new System.Drawing.Size(200, 23);
+                this.txtPatientName.TabIndex = 1;
+
+                // label2
+                this.label2.AutoSize = true;
+                this.label2.Location = new System.Drawing.Point(30, 70);
+                this.label2.Name = "label2";
+                this.label2.Size = new System.Drawing.Size(60, 15);
+                this.label2.TabIndex = 2;
+                this.label2.Text = "Diagnosis:";
+
+                // txtDiagnosis
+                this.txtDiagnosis.Location = new System.Drawing.Point(120, 67);
+                this.txtDiagnosis.Multiline = true;
+                this.txtDiagnosis.Name = "txtDiagnosis";
+                this.txtDiagnosis.Size = new System.Drawing.Size(200, 100);
+                this.txtDiagnosis.TabIndex = 3;
+
+                // btnGenerateReport
+                this.btnGenerateReport.Location = new System.Drawing.Point(120, 180);
+                this.btnGenerateReport.Name = "btnGenerateReport";
+                this.btnGenerateReport.Size = new System.Drawing.Size(120, 30);
+                this.btnGenerateReport.TabIndex = 4;
+                this.btnGenerateReport.Text = "Generate Report";
+                this.btnGenerateReport.UseVisualStyleBackColor = true;
+                this.btnGenerateReport.Click += new System.EventHandler(btnGenerateReport_Click);
+
+                // InputForm
+                this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+                this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                this.ClientSize = new System.Drawing.Size(354, 231);
+                this.Controls.Add(this.btnGenerateReport);
+                this.Controls.Add(this.txtDiagnosis);
+                this.Controls.Add(this.label2);
+                this.Controls.Add(this.txtPatientName);
+                this.Controls.Add(this.label1);
+                this.Name = "InputForm";
+                this.Text = "Enter Patient Information";
+                this.ResumeLayout(false);
+                this.PerformLayout();
+
+            }
+
+            public System.Windows.Forms.Label label1;
+            public System.Windows.Forms.TextBox txtPatientName;
+            public System.Windows.Forms.Label label2;
+            public System.Windows.Forms.TextBox txtDiagnosis;
+            public System.Windows.Forms.Label label3;
+            public System.Windows.Forms.TextBox imgPath;
+            public System.Windows.Forms.Button btnGenerateReport;
+
+            private void btnGenerateReport_Click(object sender, EventArgs e)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
 
 
+        }
     }
 }
