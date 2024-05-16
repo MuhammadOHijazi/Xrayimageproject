@@ -1,9 +1,80 @@
 using NAudio.Wave;
 using System.Drawing.Imaging;
 using NAudio.Lame;
+using System.IO.Compression;
 
 namespace xrayimageproject
 {
+    public class FileAndDirectoryCompression
+    {
+        // This function determines if the path is a directory or a file and compresses accordingly
+        public static void Compress(string inputPath, string outputPath)
+        {
+            // Ensure the output file name ends with '.zip'
+            if (!outputPath.EndsWith(".zip"))
+            {
+                outputPath += ".zip";
+            }
+            try
+            {
+                using (FileStream zipToOpen = new FileStream(outputPath, FileMode.Create))
+                {
+                    using (ZipArchive archive = new ZipArchive(zipToOpen, ZipArchiveMode.Create))
+                    {
+                        // Check if the input path is a directory or a file
+                        if (Directory.Exists(inputPath))
+                        {
+                            // Call the extension method to add the directory to the archive
+                            archive.CreateEntryFromDirectory(inputPath, Path.GetFileName(inputPath));
+                        }
+                        else if (File.Exists(inputPath))
+                        {
+                            // Call the extension method to add the file to the archive
+                            archive.CreateEntryFromFile(inputPath, Path.GetFileName(inputPath), CompressionLevel.Optimal);
+                        }
+                        else
+                        {
+                            throw new FileNotFoundException($"The input path '{inputPath}' does not exist.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details if necessary
+                // Display a prompt to the user
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+    public static class ZipArchiveExtensions
+    {
+        public static void CreateEntryFromDirectory(this ZipArchive archive, string sourceDirPath, string entryName = "")
+        {
+            // Add the directory
+            if (!string.IsNullOrEmpty(entryName))
+            {
+                archive.CreateEntry(entryName + "/");
+            }
+
+            // Add the files from the directory
+            DirectoryInfo di = new DirectoryInfo(sourceDirPath);
+            FileInfo[] files = di.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string fileEntryName = string.IsNullOrEmpty(entryName) ? file.Name : entryName + "/" + file.Name;
+                archive.CreateEntryFromFile(file.FullName, fileEntryName, CompressionLevel.Optimal);
+            }
+
+            // Recursively add subdirectories
+            DirectoryInfo[] subDirectories = di.GetDirectories();
+            foreach (DirectoryInfo subDirectory in subDirectories)
+            {
+                string subDirEntryName = string.IsNullOrEmpty(entryName) ? subDirectory.Name : entryName + "/" + subDirectory.Name;
+                CreateEntryFromDirectory(archive, subDirectory.FullName, subDirEntryName);
+            }
+        }
+    }
     public class AudioCompression
     {
         public static void CompressAudio(string inputPath, string outputPath, IAudioCompressor compressor)
