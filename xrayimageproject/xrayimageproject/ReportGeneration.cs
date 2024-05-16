@@ -11,7 +11,7 @@ namespace xrayimageproject
 {
     internal class ReportGeneration
     {
-        public void GenerateReport(string name, string id, string diagnosis, System.Drawing.Image image) {
+        public static void GenerateReport(string name, string id, string diagnosis, System.Drawing.Image image) {
 
            
             SaveFileDialog saveFileDialog = new SaveFileDialog();
