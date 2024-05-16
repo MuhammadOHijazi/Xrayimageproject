@@ -587,7 +587,34 @@ namespace xrayimageproject
             string outputPath = "..\\..\\..\\compressedImages\\compressed" +
                 System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
             int quality = 75;
-            Compression.CompressJpegImage(pictureBox1.Image, outputPath, quality);
+            ImageCompression.CompressJpegImage(pictureBox1.Image, outputPath, quality);
+        }
+
+        private void guna2Button16_Click(object sender, EventArgs e)
+        {
+            int compressionRate = 128000; // 128 kbps for standard voice quality.
+            IAudioCompressor compressor = new Mp3AudioCompressor(compressionRate);
+            // brows to choose an wav audio file to compress
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "..\\..\\..\\";
+                openFileDialog.Filter = "WAV files (*.wav)|*.wav";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the path of specified file
+                    string inputPath = openFileDialog.FileName;
+
+                    // Set the output path, for example, same directory with .mp3 extension
+                    string outputPath = Path.ChangeExtension(inputPath, ".mp3");
+
+                    // Call the CompressAudio method
+                    AudioCompression.CompressAudio(inputPath, outputPath, compressor);
+
+                    MessageBox.Show("Compression completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         // generating report

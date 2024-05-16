@@ -12,32 +12,45 @@ namespace xrayimageproject
         }
         public static Bitmap ApplyFilter(System.Drawing.Image image, float cutoffFrequency, FilterType filterType)
         {
-            // Load the image
-            Bitmap sourceImage = new Bitmap(image);
+            try
+            {
+                // throw an exception if there is no image
+                ArgumentNullException.ThrowIfNull(image);
 
-            // Convert the image to grayscale the parameters are the standard coefficients
-            Grayscale grayscaleFilter = new Grayscale(0.2125, 0.7154, 0.0721);
-            Bitmap grayImage = grayscaleFilter.Apply(sourceImage);
+                // Load the image
+                Bitmap sourceImage = new Bitmap(image);
 
-            // Apply FFT to the grayscale image
-            ComplexImage complexImage = ComplexImage.FromBitmap(grayImage);
-            complexImage.ForwardFourierTransform();
+                // Convert the image to grayscale the parameters are the standard coefficients
+                Grayscale grayscaleFilter = new Grayscale(0.2125, 0.7154, 0.0721);
+                Bitmap grayImage = grayscaleFilter.Apply(sourceImage);
 
-            // Create a high-pass filter mask
-            int width = grayImage.Width;
-            int height = grayImage.Height;
-            float[,] hpfMask = CreateFilterMask(width, height, cutoffFrequency, filterType);
+                // Apply FFT to the grayscale image
+                ComplexImage complexImage = ComplexImage.FromBitmap(grayImage);
+                complexImage.ForwardFourierTransform();
 
-            // Apply the high-pass filter mask to the FFT image
-            ApplyMaskToComplexImage(complexImage, hpfMask);
+                // Create a high-pass filter mask
+                int width = grayImage.Width;
+                int height = grayImage.Height;
+                float[,] hpfMask = CreateFilterMask(width, height, cutoffFrequency, filterType);
 
-            // Perform an inverse Fourier transform
-            complexImage.BackwardFourierTransform();
+                // Apply the high-pass filter mask to the FFT image
+                ApplyMaskToComplexImage(complexImage, hpfMask);
 
-            // Convert the complex image back to bitmap
-            Bitmap hpfImage = complexImage.ToBitmap();
+                // Perform an inverse Fourier transform
+                complexImage.BackwardFourierTransform();
 
-            return hpfImage;
+                // Convert the complex image back to bitmap
+                Bitmap hpfImage = complexImage.ToBitmap();
+
+                return hpfImage;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details if necessary
+                // Display a prompt to the user
+                MessageBox.Show("An error occurred while applying the filter.: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
         }
         private static float[,] CreateFilterMask(int width, int height, float cutoffFrequency, FilterType filterType)
         {
@@ -60,7 +73,6 @@ namespace xrayimageproject
                     }
                 }
             }
-
             return mask;
         }
         private static void ApplyMaskToComplexImage(ComplexImage complexImage, float[,] mask)
