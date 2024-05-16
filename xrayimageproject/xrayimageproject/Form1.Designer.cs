@@ -558,7 +558,7 @@ namespace xrayimageproject
             guna2ComboBox2.Font = new Font("Segoe UI", 10F);
             guna2ComboBox2.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox2.ItemHeight = 30;
-            guna2ComboBox2.Items.AddRange(new object[] { "Select Color ", "visual spectrum", "deep violet", "Diagnostic", "Medical" });
+            guna2ComboBox2.Items.AddRange(new object[] { "Select Color ", "visual spectrum", "deep violet", "Diagnostic", "Medical", "Red", "Blue", "Green" });
             guna2ComboBox2.Location = new Point(71, 17);
             guna2ComboBox2.Name = "guna2ComboBox2";
             guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges30;

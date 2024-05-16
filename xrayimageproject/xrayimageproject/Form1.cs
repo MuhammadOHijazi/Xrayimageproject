@@ -339,6 +339,42 @@ namespace xrayimageproject
     Color.FromArgb(255, 0, 0)      // index15: Pure Red
 };
 
+        private Color[] blueColorMap = new Color[] {
+    Color.FromArgb(255, 240, 240, 255), // index0: Very Light Blue
+    Color.FromArgb(255, 224, 224, 255), // index1: Lighter Blue
+    Color.FromArgb(255, 208, 208, 255), // index2: Light Blue
+    Color.FromArgb(255, 192, 192, 255), // index3: Soft Blue
+    Color.FromArgb(255, 176, 176, 255), // index4: Sky Blue
+    Color.FromArgb(255, 160, 160, 255), // index5: Warm Blue
+    Color.FromArgb(255, 144, 144, 255), // index6: Medium Light Blue
+    Color.FromArgb(255, 128, 128, 255), // index7: Medium Blue
+    Color.FromArgb(255, 112, 112, 255), // index8: Rich Blue
+    Color.FromArgb(255, 96, 96, 255),   // index9: Strong Blue
+    Color.FromArgb(255, 80, 80, 255),   // index10: Deep Blue
+    Color.FromArgb(255, 64, 64, 255),   // index11: Darker Blue
+    Color.FromArgb(255, 48, 48, 255),   // index12: Dark Blue
+    Color.FromArgb(255, 32, 32, 255),   // index13: Very Dark Blue
+    Color.FromArgb(255, 16, 16, 255),   // index14: Near Black Blue
+    Color.FromArgb(255, 0, 0, 255)      // index15: Pure Blue
+};
+        private Color[] greenColorMap = new Color[] {
+    Color.FromArgb(255, 240, 255, 240), // index0: Very Light Green
+    Color.FromArgb(255, 224, 255, 224), // index1: Lighter Green
+    Color.FromArgb(255, 208, 255, 208), // index2: Light Green
+    Color.FromArgb(255, 192, 255, 192), // index3: Soft Green
+    Color.FromArgb(255, 176, 255, 176), // index4: Mint Green
+    Color.FromArgb(255, 160, 255, 160), // index5: Warm Green
+    Color.FromArgb(255, 144, 255, 144), // index6: Medium Light Green
+    Color.FromArgb(255, 128, 255, 128), // index7: Medium Green
+    Color.FromArgb(255, 112, 255, 112), // index8: Rich Green
+    Color.FromArgb(255, 96, 255, 96),   // index9: Strong Green
+    Color.FromArgb(255, 80, 255, 80),   // index10: Deep Green
+    Color.FromArgb(255, 64, 255, 64),   // index11: Darker Green
+    Color.FromArgb(255, 48, 255, 48),   // index12: Dark Green
+    Color.FromArgb(255, 32, 255, 32),   // index13: Very Dark Green
+    Color.FromArgb(255, 16, 255, 16),   // index14: Near Black Green
+    Color.FromArgb(255, 0, 255, 0)      // index15: Pure Green
+};
 
         private void guna2Button9_Click(object sender, EventArgs e)
         {
@@ -726,14 +762,28 @@ namespace xrayimageproject
                     }
                     else if (ColorMaps == 3)
                     {
-                        // DiagnosticColorMap
                         Color mappedColor = DiagnosticColorMap[brighteness];
                         selectedBitmap.SetPixel(x, y, mappedColor);
                     }
                     else if (ColorMaps == 4)
                     {
-                        // DiagnosticColorMap
+                        Color mappedColor = medicalColorMap[brighteness];
+                        selectedBitmap.SetPixel(x, y, mappedColor);
+                    }
+                    else if (ColorMaps == 5)
+                    {
                         Color mappedColor = redColorMap[brighteness];
+                        selectedBitmap.SetPixel(x, y, mappedColor);
+                    }
+                    else if (ColorMaps == 6)
+                    {
+                        Color mappedColor = blueColorMap[brighteness];
+                        selectedBitmap.SetPixel(x, y, mappedColor);
+                    }
+                    else if (ColorMaps == 7)
+                    {
+                        
+                        Color mappedColor = greenColorMap[brighteness];
                         selectedBitmap.SetPixel(x, y, mappedColor);
                     }
                 }
@@ -766,6 +816,15 @@ namespace xrayimageproject
                     break;
                 case "Medical":
                     ColoredSpaceSelected(4);
+                    break;
+                case "Red":
+                    ColoredSpaceSelected(5);
+                    break;
+                case "Blue":
+                    ColoredSpaceSelected(6);
+                    break;
+                case "Green":
+                    ColoredSpaceSelected(7);
                     break;
 
             }
