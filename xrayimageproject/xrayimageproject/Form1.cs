@@ -911,56 +911,66 @@ namespace xrayimageproject
         }
         private void guna2Button7_Click_1(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            if (pictureBox1.Image != null)
             {
-                openFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    pictureBox3.Image = new Bitmap(openFileDialog.FileName);
-                }
-            }
-            Bitmap FirstImage = (Bitmap)pictureBox1.Image;
-            Bitmap SecondImage = (Bitmap)pictureBox3.Image;
-            int minWidth = Math.Min(FirstImage.Width, SecondImage.Width);
-            int minHeight = Math.Min(FirstImage.Height, SecondImage.Height);
-
-            int firstPixels = 0;
-            int secondPixels = 0;
-            for (int x = 0; x < minWidth; x++)
-            {
-                for (int y = 0; y < minHeight; y++)
-                {
-                    Color FirstImageOriginalPixel = FirstImage.GetPixel(x, y);
-                    int FirstBrighteness = CalculateBrightnessLevel(FirstImageOriginalPixel);
-
-                    Color SecondImageOriginalPixel = SecondImage.GetPixel(x, y);
-                    int SecondBrighteness = CalculateBrightnessLevel(SecondImageOriginalPixel);
-
-                    if (FirstBrighteness == SecondBrighteness)
+                    openFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        continue;
-                    }
-                    if (FirstBrighteness>SecondBrighteness)
-                    {
-                        firstPixels++;
-                    }
-                    if (FirstBrighteness<SecondBrighteness)
-                    {
-                        secondPixels++;
+                        pictureBox3.Image = new Bitmap(openFileDialog.FileName);
                     }
                 }
-            }
-            if (firstPixels > secondPixels) {
-                MessageBox.Show("The Treatment Goes Well");
-                return;
-            }
-            else if (firstPixels<secondPixels)
-            {
-                MessageBox.Show("The disease is progressing");
-                return;
+                Bitmap FirstImage = (Bitmap)pictureBox1.Image;
+                Bitmap SecondImage = (Bitmap)pictureBox3.Image;
+                int minWidth = Math.Min(FirstImage.Width, SecondImage.Width);
+                int minHeight = Math.Min(FirstImage.Height, SecondImage.Height);
+
+                int firstPixels = 0;
+                int secondPixels = 0;
+                for (int x = 0; x < minWidth; x++)
+                {
+                    for (int y = 0; y < minHeight; y++)
+                    {
+                        Color FirstImageOriginalPixel = FirstImage.GetPixel(x, y);
+                        int FirstBrighteness = CalculateBrightnessLevel(FirstImageOriginalPixel);
+
+                        Color SecondImageOriginalPixel = SecondImage.GetPixel(x, y);
+                        int SecondBrighteness = CalculateBrightnessLevel(SecondImageOriginalPixel);
+
+                        if (FirstBrighteness == SecondBrighteness)
+                        {
+                            continue;
+                        }
+                        if (FirstBrighteness > SecondBrighteness)
+                        {
+                            firstPixels++;
+                        }
+                        if (FirstBrighteness < SecondBrighteness)
+                        {
+                            secondPixels++;
+                        }
+                    }
+                }
+                if (firstPixels > secondPixels)
+                {
+                    MessageBox.Show("The Treatment Goes Well");
+                    return;
+                }
+                else if (firstPixels < secondPixels)
+                {
+                    MessageBox.Show("The disease is progressing");
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("There is no Change");
+                    return;
+                }
+
             }
             else {
-                MessageBox.Show("There is no Change");
+                MessageBox.Show("You Have to Import First Image before to Compare with it");
                 return;
             }
 
