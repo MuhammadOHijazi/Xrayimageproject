@@ -927,7 +927,6 @@ namespace xrayimageproject
 
             if (result == DialogResult.OK)
             {
-
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
                 saveFileDialog.RestoreDirectory = true;
@@ -936,7 +935,6 @@ namespace xrayimageproject
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string outputPath = saveFileDialog.FileName;
-
                     // Add caption on the image
                     CaptionOnImage.SetCaption(pictureBox1.Image, outputPath, captionInputForm.caption.Text);
                 }
