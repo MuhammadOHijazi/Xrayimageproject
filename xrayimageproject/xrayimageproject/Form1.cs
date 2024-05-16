@@ -383,6 +383,7 @@ namespace xrayimageproject
         private void guna2Button11_Click(object sender, EventArgs e)
         {
             SaveFileDialog sf = new SaveFileDialog();
+            sf.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
             if (sf.ShowDialog() == DialogResult.OK)
             {
                 pictureBox1.Image.Save(sf.FileName);
@@ -854,6 +855,33 @@ namespace xrayimageproject
 
         private void guna2Button7_Click_1(object sender, EventArgs e)
         {
+
+        }
+
+        // Add Caption on the Image
+        private void guna2Button18_Click(object sender, EventArgs e)
+        {
+            CaptionInputForm captionInputForm = new();
+            DialogResult result = captionInputForm.ShowDialog(); // Show as a modal dialog
+
+            if (result == DialogResult.OK)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
+                saveFileDialog.RestoreDirectory = true;
+                saveFileDialog.Title = "Save Captioned Image";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string outputPath = saveFileDialog.FileName;
+                    // Add caption on the image
+                    CaptionOnImage.SetCaption(pictureBox1.Image, outputPath, captionInputForm.caption.Text);
+                }
+            }
+        }
+
+        private void guna2Button19_Click(object sender, EventArgs e)
+        {
             if (pictureBox1.Image != null)
             {
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -916,28 +944,6 @@ namespace xrayimageproject
             {
                 MessageBox.Show("You Have to Import First Image before to Compare with it");
                 return;
-            }
-        }
-
-        // Add Caption on the Image
-        private void guna2Button18_Click(object sender, EventArgs e)
-        {
-            CaptionInputForm captionInputForm = new();
-            DialogResult result = captionInputForm.ShowDialog(); // Show as a modal dialog
-
-            if (result == DialogResult.OK)
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
-                saveFileDialog.RestoreDirectory = true;
-                saveFileDialog.Title = "Save Captioned Image";
-
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string outputPath = saveFileDialog.FileName;
-                    // Add caption on the image
-                    CaptionOnImage.SetCaption(pictureBox1.Image, outputPath, captionInputForm.caption.Text);
-                }
             }
         }
     }
