@@ -119,7 +119,7 @@ namespace xrayimageproject
 
         private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            guna2DataGridView1.ReadOnly = true;
+            moDataGridView1.ReadOnly = true;
             this.handleClickingOnSearchResults(e);
         }
 
@@ -127,7 +127,7 @@ namespace xrayimageproject
         {
             if (e.RowIndex >= 0)
             {
-                var cellValue = guna2DataGridView1.Rows[e.RowIndex].Cells[1].Value;
+                var cellValue = moDataGridView1.Rows[e.RowIndex].Cells[1].Value;
                 if (cellValue != null)
                 {
                     string path = cellValue.ToString();
@@ -183,26 +183,26 @@ namespace xrayimageproject
 
         private void showResults(List<FileInfo> results)
         {
-            guna2DataGridView1.Rows.Clear();
-            guna2DataGridView1.Columns.Clear();
+            moDataGridView1.Rows.Clear();
+            moDataGridView1.Columns.Clear();
 
             if (results.Count > 0)
             {
-                guna2DataGridView1.Visible = true;
-                guna2DataGridView1.Columns.Add("Name", "Name");
-                guna2DataGridView1.Columns.Add("Path", "Path");
+                moDataGridView1.Visible = true;
+                moDataGridView1.Columns.Add("Name", "Name");
+                moDataGridView1.Columns.Add("Path", "Path");
 
 
                 foreach (FileInfo result in results)
                 {
-                    guna2DataGridView1.Rows.Add(result.Name, result.Directory + "\\" + result.Name);
+                    moDataGridView1.Rows.Add(result.Name, result.Directory + "\\" + result.Name);
                 }
 
             }
 
             else
             {
-                guna2DataGridView1.Visible = false;
+                moDataGridView1.Visible = false;
             }
         }
 
