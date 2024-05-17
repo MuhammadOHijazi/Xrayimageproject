@@ -21,6 +21,8 @@ namespace xrayimageproject
 
 
             Application.Run(new Form1());
+            VoiceManager vm = new VoiceManager();
+            vm.Record();
         }
     }
 }
