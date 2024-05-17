@@ -25,8 +25,8 @@ namespace xrayimageproject.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Users\\\\number one\\\\Source\\\\Repos\\\\Xrayimageproject\\\\xrayimageproject\\\\xrayima" +
-            "geproject\\\\Properties\\\\Settings1.settings")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Users\\\\number one\\\\source\\\\repos\\\\Xrayimageproject\\\\xrayimageproject\\\\xrayima" +
+            "geproject\\\\patient files\\")]
         public string searchPath {
             get {
                 return ((string)(this["searchPath"]));

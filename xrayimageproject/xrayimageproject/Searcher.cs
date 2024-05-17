@@ -29,10 +29,15 @@ namespace xrayimageproject
         {
             string searchPath = Properties.Settings.Default.searchPath;
 
-            DirectoryInfo searchDir = new DirectoryInfo(searchPath);
+            DirectoryInfo searchDir = new DirectoryInfo("C:\\Users\\number one\\source\\repos\\Xrayimageproject\\xrayimageproject\\xrayimageproject\\patient files\\");
             var files = searchDir.GetFiles("*", SearchOption.AllDirectories)
                                  .Where(file => file.CreationTime.Date == this.date.Date)
                                  .ToList();
+
+            foreach (FileInfo file in files )
+            {
+                //Console.WriteLine(file.);
+            }
 
             return files;
 

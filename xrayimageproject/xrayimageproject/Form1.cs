@@ -4,6 +4,7 @@ using System.Drawing;
 using AForge.Imaging.Filters;
 using System.ComponentModel;
 using System.Drawing.Imaging;
+using Guna.UI2.WinForms;
 
 namespace xrayimageproject
 {
@@ -948,6 +949,149 @@ namespace xrayimageproject
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void guna2DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime date = guna2DateTimePicker1.Value;
+            Console.WriteLine(date);
+            DateSearcher dateSearcher = new DateSearcher(date);
+            var results = dateSearcher.search();
+            this.showResults(results);
+
+
+        }
+
+        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            guna2DataGridView1.ReadOnly = true;
+            this.handleClickingOnSearchResults(e);
+        }
+
+        private void handleClickingOnSearchResults(DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var cellValue = guna2DataGridView1.Rows[e.RowIndex].Cells[1].Value;
+                if (cellValue != null)
+                {
+                    string path = cellValue.ToString();
+                    this.handleMedia(path);
+                }
+            }
+        }
+
+        private void handleMedia(string path)
+        {
+            try
+            {
+                FileChecker checker = new FileChecker(path);
+                string fileType = checker.check();
+
+                if (fileType != null)
+                {
+                    if (fileType is "image")
+                    {
+                        Bitmap image = new Bitmap(path);
+                        pictureBox1.Image = image;
+                    }
+
+                    else if (fileType is "audio")
+                    {
+                        axWindowsMediaPlayer1.Visible = true;
+                        axWindowsMediaPlayer1.URL = path;
+                        axWindowsMediaPlayer1.Ctlcontrols.play();
+                        axWindowsMediaPlayer1.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(axWindowsMediaPlayer1_PlayStateChange);
+                    }
+
+
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("File Not Found Exception");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception");
+            }
+        }
+
+        private void guna2NumericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            int size = (int)guna2NumericUpDown1.Value;
+            SizeSearcher sizeSearcher = new SizeSearcher(size);
+            var results = sizeSearcher.search();
+
+            this.showResults(results);
+        }
+
+        private void showResults(List<FileInfo> results)
+        {
+            guna2DataGridView1.Rows.Clear();
+            guna2DataGridView1.Columns.Clear();
+
+            if (results.Count > 0)
+            {
+                guna2DataGridView1.Visible = true;
+                guna2DataGridView1.Columns.Add("Name", "Name");
+                guna2DataGridView1.Columns.Add("Path", "Path");
+
+
+                foreach (FileInfo result in results)
+                {
+                    guna2DataGridView1.Rows.Add(result.Name, result.Directory + "\\" + result.Name);
+                }
+
+            }
+
+            else
+            {
+                guna2DataGridView1.Visible = false;
+            }
+        }
+
+        private void guna2ImageButton1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void axAcropdf1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            if (e.newState == 1)
+            {
+                axWindowsMediaPlayer1.Visible = false;
+            }
+        }
+
+        private void guna2DataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void guna2NumericUpDown1_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2DateTimePicker1_ValueChanged_1(object sender, EventArgs e)
         {
 
         }
