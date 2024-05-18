@@ -84,14 +84,37 @@ namespace xrayimageproject
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            bool isInsideDataGridView = guna2DataGridView1.ClientRectangle.Contains(guna2DataGridView1.PointToClient(Cursor.Position));
 
+            if (!isInsideDataGridView)
+            {
+                guna2DataGridView1.Hide();
+            }
         }
+
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+        private void Form1_Click(object sender, EventArgs e)
+        {
+            bool isInsideDataGridView = guna2DataGridView1.ClientRectangle.Contains(guna2DataGridView1.PointToClient(Cursor.Position));
 
+            if (!isInsideDataGridView)
+            {
+                guna2DataGridView1.Hide();
+            }
+        }
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
         private void guna2TextBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -664,7 +687,12 @@ namespace xrayimageproject
         }
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            bool isInsideDataGridView = guna2DataGridView1.ClientRectangle.Contains(guna2DataGridView1.PointToClient(Cursor.Position));
 
+            if (!isInsideDataGridView)
+            {
+                guna2DataGridView1.Hide();
+            }
         }
 
         // LPF Fourier button
@@ -953,6 +981,15 @@ namespace xrayimageproject
 
         }
 
+        private void panel1_Click(object sender, EventArgs e)
+        {
+            bool isInsideDataGridView = guna2DataGridView1.ClientRectangle.Contains(guna2DataGridView1.PointToClient(Cursor.Position));
+
+            if (!isInsideDataGridView)
+            {
+                guna2DataGridView1.Hide();
+            }
+        }
         private void guna2DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             DateTime date = guna2DateTimePicker1.Value;
@@ -1095,5 +1132,51 @@ namespace xrayimageproject
         {
 
         }
+
+        private void axWindowsMediaPlayer1_Enter_1(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void guna2Button7_Click_2(object sender, EventArgs e)
+        {
+            guna2Button7.Enabled = false;
+            guna2Button7.Visible = false;
+            guna2Button20.Visible = true;
+            voiceManager.StartRecording();
+        }
+
+        private void guna2Button20_Click(object sender, EventArgs e)
+        {
+            guna2Button7.Enabled = true;
+            guna2Button7.Visible = true;
+            guna2Button20.Visible = false;
+            voiceManager.StopRecording();
+        }
+
+        private void guna2Button21_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
+            openFileDialog.Multiselect = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (openFileDialog.FileNames.Length == 2)
+                {
+                    string imagePath1 = openFileDialog.FileNames[0];
+                    string imagePath2 = openFileDialog.FileNames[1];
+                    Evaluator evaluator = new Evaluator(imagePath1, imagePath2);
+                    string evaluation = evaluator.Evaluate();
+                    MessageBox.Show(evaluation);
+                }
+                else
+                {
+                    MessageBox.Show("Please select exactly two images.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
     }
 }
