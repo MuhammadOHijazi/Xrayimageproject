@@ -18,7 +18,8 @@ namespace xrayimageproject
             //// Add caption on the image
             //CaptionOnImage coi = new();
             //CaptionOnImage.SetCaption(inputPath, outputpath, "patient name");
-
+            //DateSearcher searcher = new DateSearcher()
+          
 
             Application.Run(new Form1());
         }

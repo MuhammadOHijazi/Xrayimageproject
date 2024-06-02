@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="xrayimageproject.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="searchPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\Users\\number one\\source\\repos\\Xrayimageproject\\xrayimageproject\\xrayimageproject\\patient files\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
