@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using xrayimageproject.Properties;
 
 namespace xrayimageproject
 {
@@ -28,8 +29,8 @@ namespace xrayimageproject
         public List<FileInfo> search()
         {
             string searchPath = Properties.Settings.Default.searchPath;
-
-            DirectoryInfo searchDir = new DirectoryInfo("C:\\Users\\number one\\source\\repos\\Xrayimageproject\\xrayimageproject\\xrayimageproject\\patient files\\");
+        
+            DirectoryInfo searchDir = new DirectoryInfo(Properties.Settings.Default.searchPath);
             var files = searchDir.GetFiles("*", SearchOption.AllDirectories)
                                  .Where(file => file.CreationTime.Date == this.date.Date)
                                  .ToList();
