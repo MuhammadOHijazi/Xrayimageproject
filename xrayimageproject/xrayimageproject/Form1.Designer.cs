@@ -31,6 +31,9 @@ namespace xrayimageproject
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -81,11 +84,10 @@ namespace xrayimageproject
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            textBoxUsername = new TextBox();
+            guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button21 = new Guna.UI2.WinForms.Guna2Button();
             guna2NumericUpDown1 = new Guna.UI2.WinForms.Guna2NumericUpDown();
             guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -118,7 +120,6 @@ namespace xrayimageproject
             axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
             layersFlowLayoutPanel = new FlowLayoutPanel();
-            guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2NumericUpDown1).BeginInit();
@@ -143,6 +144,7 @@ namespace xrayimageproject
             // 
             // panel1
             // 
+            panel1.Controls.Add(textBoxUsername);
             panel1.Controls.Add(guna2Button5);
             panel1.Controls.Add(guna2Button21);
             panel1.Controls.Add(guna2NumericUpDown1);
@@ -159,6 +161,36 @@ namespace xrayimageproject
             panel1.TabIndex = 2;
             panel1.Click += panel1_Click;
             panel1.Paint += panel1_Paint;
+            // 
+            // textBoxUsername
+            // 
+            textBoxUsername.Location = new Point(1175, 15);
+            textBoxUsername.Name = "textBoxUsername";
+            textBoxUsername.PlaceholderText = "Enter your chatid to send";
+            textBoxUsername.Size = new Size(221, 28);
+            textBoxUsername.TabIndex = 17;
+            // 
+            // guna2Button5
+            // 
+            guna2Button5.BackColor = SystemColors.Control;
+            guna2Button5.BorderRadius = 20;
+            guna2Button5.CustomizableEdges = customizableEdges1;
+            guna2Button5.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button5.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button5.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button5.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button5.FillColor = Color.Empty;
+            guna2Button5.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2Button5.ForeColor = Color.White;
+            guna2Button5.Image = (Image)resources.GetObject("guna2Button5.Image");
+            guna2Button5.ImageSize = new Size(30, 30);
+            guna2Button5.Location = new Point(1124, 9);
+            guna2Button5.Name = "guna2Button5";
+            guna2Button5.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            guna2Button5.Size = new Size(45, 43);
+            guna2Button5.TabIndex = 16;
+            guna2Button5.TextOffset = new Point(10, 0);
+            guna2Button5.Click += guna2Button5_Click;
             // 
             // guna2Button21
             // 
@@ -874,28 +906,6 @@ namespace xrayimageproject
             layersFlowLayoutPanel.Size = new Size(295, 585);
             layersFlowLayoutPanel.TabIndex = 12;
             // 
-            // guna2Button5
-            // 
-            guna2Button5.BackColor = SystemColors.Control;
-            guna2Button5.BorderRadius = 20;
-            guna2Button5.CustomizableEdges = customizableEdges1;
-            guna2Button5.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button5.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button5.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button5.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button5.FillColor = Color.Empty;
-            guna2Button5.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button5.HoverState.Image = (Image)resources.GetObject("resource.Image");
-            guna2Button5.Image = (Image)resources.GetObject("guna2Button5.Image");
-            guna2Button5.ImageSize = new Size(30, 30);
-            guna2Button5.Location = new Point(1303, 9);
-            guna2Button5.Name = "guna2Button5";
-            guna2Button5.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button5.Size = new Size(45, 43);
-            guna2Button5.TabIndex = 16;
-            guna2Button5.TextOffset = new Point(10, 0);
-            guna2Button5.Click += guna2Button5_Click;
-            // 
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -967,5 +977,6 @@ namespace xrayimageproject
         private Guna.UI2.WinForms.Guna2Button cut;
         private FlowLayoutPanel layersFlowLayoutPanel;
         private Guna.UI2.WinForms.Guna2Button guna2Button5;
+        private TextBox textBoxUsername;
     }   
 }

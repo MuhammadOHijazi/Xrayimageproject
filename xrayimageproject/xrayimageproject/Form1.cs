@@ -1,10 +1,10 @@
 using System.Drawing.Imaging;
 using System.IO.Compression;
-using System;
 using Telegram.Bot;
 using System.Net.Http;
-using System.IO;
-using System.Threading.Tasks;
+using NAudio.Gui;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Windows.Forms;
 
 namespace xrayimageproject
 {
@@ -1302,37 +1302,55 @@ namespace xrayimageproject
         string Document_send_path;
         private static readonly string botToken = "6441509102:AAHkYE-XSzQI4fm-qZFWYbtsxUyivPKUNC8";
         private TelegramBotClient botClient;
-        private Dictionary<string, long> userChatIdMapping = new Dictionary<string, long>();
-        private void guna2Button5_Click(object sender, EventArgs e)
+        private static readonly HttpClient httpClient = new HttpClient();
+        private async void guna2Button5_Click(object sender, EventArgs e)
         {
-
-                //MessageBox.Show("First You have to export to PDF to send the image");
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        Document_send_path = openFileDialog.FileName;
-                    }
+                    Document_send_path = openFileDialog.FileName;
                 }
-                string filePath = Document_send_path;
+            }
 
+            using (var stream = new FileStream(Document_send_path, FileMode.Open, FileAccess.Read))
+            {
+                var content = new MultipartFormDataContent();
+                content.Add(new StreamContent(stream), "document", Path.GetFileName(Document_send_path));
 
-                //string username = textBoxUsername.Text; // Assuming you have a TextBox to input username
-                /*
-                if (File.Exists(filePath) && userChatIdMapping.TryGetValue(username, out long chatId))
+                try
                 {
-                    using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+
+                    var chatId = textBoxUsername.Text; // Assuming this is the correct chat ID or username
+                    var url = $"https://api.telegram.org/bot{botToken}/sendDocument?chat_id={chatId}";
+
+                    var response = await httpClient.PostAsync(url, content);
+                    if (!response.IsSuccessStatusCode)
                     {
-                        // InputOnlineFile inputOnlineFile = new InputOnlineFile(fileStream, Path.GetFileName(filePath));
-                        // await botClient.SendDocumentAsync(chatId, inputOnlineFile);
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show($"Failed to send file: {response.ReasonPhrase}\nDetails: {responseContent}");
+                    }
+                    else
+                    {
                         MessageBox.Show("File sent successfully!");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("File not found or username not mapped to chat ID.");
-                }*/
+                    MessageBox.Show($"Exception occurred: {ex.Message}");
+                }
             }
+        }
+
+        private void textBoxUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
