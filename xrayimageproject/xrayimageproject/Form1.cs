@@ -1,17 +1,21 @@
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Drawing;
-using AForge.Imaging.Filters;
-using System.ComponentModel;
 using System.Drawing.Imaging;
-using Guna.UI2.WinForms;
+using System.IO.Compression;
 
 namespace xrayimageproject
 {
     public partial class Form1 : Form
     {
+
+        List<Point> points = new List<Point>();// Stores points for drawing the line
+        static List<LayerItem> layerItems = new List<LayerItem>();
+        static Bitmap mergedImage;
+        bool isLeftMouseDown = false;
+        int pointsNumber = 0;
+        int maxY = 0;
+        static int currentLayerIndex = 0;
+
         // Patient ID
-        static int id = 1000;
+        public static int id = 1000;
 
         // Declare variables to track the selection
         bool isSelecting = false;
@@ -30,10 +34,172 @@ namespace xrayimageproject
             pictureBox1.MouseMove += new MouseEventHandler(pictureBox_MouseMove);
             pictureBox1.MouseUp += new MouseEventHandler(pictureBox_MouseUp);
             pictureBox1.Paint += new PaintEventHandler(pictureBox_Paint);
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
 
+        }
+        private void loadImage()
+        {
+            pictureBox1.Height = mergedImage.Height;
+            pictureBox1.Width = mergedImage.Width;
+            pictureBox1.Image = mergedImage;
+        }
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                points.Clear(); // Clear previous points on left click down
+                points.Add(e.Location);
+                maxY = Math.Max(maxY, e.Y);
+                pointsNumber = 1;
+                isLeftMouseDown = true;
+                isCutButtonVisible = false;
+
+            }
+        }
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (isLeftMouseDown)
+            {
+                using (Pen colorPen = new Pen(Color.Red, 1))
+                {
+                    Graphics.FromImage(mergedImage).DrawLine(colorPen, points[0], points[points.Count - 1]);
+                }
+                isCutButtonVisible = true;
+                isLeftMouseDown = false;
+                cut.Visible = true;
+
+            }
+        }
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mouseP = e.Location;
+
+            if (isLeftMouseDown)
+            {
+                Point mousePos = new Point(mouseP.X, mouseP.Y);
+
+                if (mousePos.X < 0) mousePos.X = 0;
+                if (mousePos.Y < 0) mousePos.Y = 0;
+                if (mousePos.Y >= pictureBox1.Height) mousePos.Y = pictureBox1.Height - 1;
+                if (mousePos.X >= pictureBox1.Width) mousePos.X = pictureBox1.Width - 1;
+
+                // Add current mouse position to points list
+                points.Add(mousePos);
+                maxY = Math.Max(maxY, mousePos.Y);
+                pointsNumber++;
+                pictureBox1.Invalidate();
+                Console.WriteLine(mousePos);
+
+            }
+        }
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (points.Count > 1)
+            {
+                var pointsArray = points.ToArray();
+
+                for (int i = 1; i < points.Count; i++)
+                {
+                    using (Pen colorPen = new Pen(Color.Red, 1))
+                    {
+                        Graphics.FromImage(mergedImage).DrawLine(colorPen, points[i - 1], points[i]);
+
+                        e.Graphics.DrawLine(colorPen, points[i - 1], points[i]);
+
+                        int width = Math.Abs(points[points.Count - 1].X - points[0].X);
+                        int height = Math.Abs(points[points.Count - 1].Y - points[0].Y);
+
+                        //   e.Graphics.DrawRectangle(colorPen,new Rectangle(points[0].X, points[0].Y,width,height));
+                    }
+
+                }
+                using (Pen dashedPen = new Pen(Color.Black, 3) { DashPattern = new float[] { 5, 5 } })
+                {
+                    e.Graphics.DrawLine(dashedPen, points[0], points[points.Count - 1]);
+                }
+            }
+        }
+        //SCAN
+        public Bitmap scan(List<Point> listOfPoints, Bitmap bm)
+        {
+            Bitmap copy = new Bitmap(mergedImage.Width, mergedImage.Height);
+            var arrayOfPoints = listOfPoints.ToArray();
+            bool first = true;
+            bool boarders = false;
+            bool inside = false;
+
+            for (int y = 0; y < bm.Height; y++)
+            {
+                for (int x = 0; x < bm.Width; x++)
+                {
+                    if (mergedImage.GetPixel(x, y) == Color.FromArgb(255, 255, 0, 0))
+                    {
+                        boarders = true;
+                        mergedImage.SetPixel(x, y, Color.FromArgb(0, 200, 200, 200));
+                        copy.SetPixel(x, y, Color.FromArgb(0, 200, 200, 200));
+                        continue;
+                    }
+                    if (boarders)
+                    {
+                        if (first || y == maxY)
+                            first = false;
+                        else
+                            inside = !inside;
+                    }
+                    if (inside)
+                    {
+                        copy.SetPixel(x, y, mergedImage.GetPixel(x, y));
+                    }
+                    boarders = false;
+                }
+            }
+            return copy;
+        }
+        //CUT
+        private void cut_Click_1(object sender, EventArgs e)
+        {
+            isCutButtonVisible = true;
+            Bitmap copiedImage = scan(points, mergedImage);
+            layerItems.Add(new LayerItem(image: copiedImage.Clone() as Bitmap, id: layerItems.Count));
+            layersFlowLayoutPanel.Controls.Add(layerItems[layerItems.Count - 1]);
+            merge();
+            maxY = 0;
+            points.Clear();
+        }
+        bool isCutButtonVisible = false;
+
+        private void cut_VisibleChanged(object sender, EventArgs e)
+        {
+            cut.Visible = isCutButtonVisible;
+        }
+        static public void merge()
+        {
+            Bitmap n = new Bitmap(mergedImage.Width, mergedImage.Height);
+
+            for (int i = 0; i < layerItems.Count; i++)
+            {
+                if (layerItems[i].IsVisible)
+                {
+                    for (int y = 0; y < layerItems[i].Image.Height; y++)
+                    {
+                        for (int x = 0; x < layerItems[i].Image.Width; x++)
+                        {
+                            if (layerItems[i].Image.GetPixel(x, y).A != 0)
+                            {
+
+                                n.SetPixel(x, y, layerItems[i].Image.GetPixel(x, y));
+                            }
+                        }
+                    }
+                }
+            }
+            //pictureBox1.Image = n;
+            mergedImage = n.Clone() as Bitmap;
+        }
+
+        static public void changeVisiblityToLayerNumber(int i)
+        {
+            layerItems[i].IsVisible = !layerItems[i].IsVisible;
+            merge();
         }
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -91,13 +257,6 @@ namespace xrayimageproject
                 guna2DataGridView1.Hide();
             }
         }
-
-
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
         private void Form1_Click(object sender, EventArgs e)
         {
             bool isInsideDataGridView = guna2DataGridView1.ClientRectangle.Contains(guna2DataGridView1.PointToClient(Cursor.Position));
@@ -106,18 +265,6 @@ namespace xrayimageproject
             {
                 guna2DataGridView1.Hide();
             }
-        }
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
-
-        }
-        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
         private static Bitmap ConvertToGrayscale(Bitmap original)
         {
@@ -156,16 +303,6 @@ namespace xrayimageproject
 
                 }
             }
-        }
-
-        private void guna2Button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
         private void guna2Button6_Click(object sender, EventArgs e)
         {
@@ -213,16 +350,6 @@ namespace xrayimageproject
         {
             dragging = false;
         }
-
-        private void guna2Button7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2Button8_Click(object sender, EventArgs e)
-        {
-        }
-
 
         private int CalculateBrightnessLevel(Color color)
         {
@@ -401,7 +528,15 @@ namespace xrayimageproject
 
         private void guna2Button9_Click(object sender, EventArgs e)
         {
+            mergedImage = new Bitmap(pictureBox1.Image);
+            loadImage();
 
+            pictureBox1.Paint += pictureBox1_Paint;
+            pictureBox1.MouseMove += pictureBox1_MouseMove;
+            pictureBox1.MouseDown += pictureBox1_MouseDown;
+            pictureBox1.MouseUp += pictureBox1_MouseUp;
+            layerItems.Add(new LayerItem(image: mergedImage.Clone() as Bitmap, id: 0));
+            layersFlowLayoutPanel.Controls.Add(layerItems[0]);
         }
 
         private void guna2Button11_Click(object sender, EventArgs e)
@@ -756,33 +891,65 @@ namespace xrayimageproject
                 ReportGeneration.GenerateReport(patientName, id.ToString(), diagnosisText, image);
             }
         }
+        public static void CompressDirectory(string inputDirectory, string outputZipPath)
+        {
+            // Ensure the output directory exists
+            string outputDir = Path.GetDirectoryName(outputZipPath);
+            if (!Directory.Exists(outputDir))
+            {
+                Directory.CreateDirectory(outputDir);
+            }
+
+            // Create a zip file from the input directory
+            ZipFile.CreateFromDirectory(inputDirectory, outputZipPath);
+        }
         // compress files and directories
         private void guna2Button17_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            // Ask the user if they want to compress a file or a directory
+            var result = MessageBox.Show("Do you want to compress a directory?", "Choose Compression Type", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                openFileDialog.InitialDirectory = "..\\..\\..\\";
-                openFileDialog.Filter = "pdf files (*.pdf)|*.pdf";
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                // Let the user select a directory
+                using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
                 {
-                    // Get the path of specified file
-                    string inputPath = openFileDialog.FileName;
+                    if (folderDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        // Get the selected directory
+                        string selectedDirectory = folderDialog.SelectedPath;
 
-                    // Set the output path, for example, same directory with .mp3 extension
-                    string outputPath = Path.ChangeExtension(inputPath, ".zip");
+                        // Set the output path for the directory zip
+                        string dirOutputPath = Path.Combine(Path.GetDirectoryName(selectedDirectory), Path.GetFileName(selectedDirectory) + ".zip");
 
-                    // Call the FileAndDirectoryCompression compress method
-                    FileAndDirectoryCompression.Compress(inputPath, outputPath);
-
-                    MessageBox.Show("Compression completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Compress the directory
+                        CompressDirectory(selectedDirectory, dirOutputPath);
+                        MessageBox.Show("Directory compression completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
+            else
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.InitialDirectory = "..\\..\\..\\";
+                    openFileDialog.Filter = "pdf files (*.pdf)|*.pdf";
+                    openFileDialog.RestoreDirectory = true;
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        // Get the path of specified file
+                        string inputPath = openFileDialog.FileName;
 
+                        // Set the output path, for example, same directory with .zip extension
+                        string outputPath = Path.ChangeExtension(inputPath, ".zip");
+
+                        // Call the FileAndDirectoryCompression compress method
+                        FileAndDirectoryCompression.Compress(inputPath, outputPath);
+                        MessageBox.Show("File compression completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
-
-
         private void ColoredSpaceSelected(int ColorMaps)
         {
             Bitmap originalImage = (Bitmap)pictureBox1.Image;
@@ -881,12 +1048,6 @@ namespace xrayimageproject
 
             }
         }
-
-        private void guna2Button7_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         // Add Caption on the Image
         private void guna2Button18_Click(object sender, EventArgs e)
         {
@@ -908,7 +1069,6 @@ namespace xrayimageproject
                 }
             }
         }
-
         private void guna2Button19_Click(object sender, EventArgs e)
         {
             if (pictureBox1.Image != null)
@@ -1089,27 +1249,6 @@ namespace xrayimageproject
                 guna2DataGridView1.Visible = false;
             }
         }
-
-        private void guna2ImageButton1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void axAcropdf1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
         {
             if (e.newState == 1)
@@ -1117,28 +1256,6 @@ namespace xrayimageproject
                 axWindowsMediaPlayer1.Visible = false;
             }
         }
-
-        private void guna2DataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void guna2NumericUpDown1_ValueChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2DateTimePicker1_ValueChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void axWindowsMediaPlayer1_Enter_1(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void guna2Button7_Click_2(object sender, EventArgs e)
         {
             guna2Button7.Enabled = false;
@@ -1177,6 +1294,5 @@ namespace xrayimageproject
                 }
             }
         }
-
     }
 }

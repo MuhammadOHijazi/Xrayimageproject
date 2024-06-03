@@ -20,6 +20,7 @@ namespace xrayimageproject
             }
             base.Dispose(disposing);
         }
+
         private VoiceManager VoiceManager;
 
         #region Windows Form Designer generated code
@@ -30,6 +31,9 @@ namespace xrayimageproject
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -75,14 +79,16 @@ namespace xrayimageproject
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges45 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges46 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges47 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges48 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges49 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges50 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges51 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            guna2Button21 = new Guna.UI2.WinForms.Guna2Button();
             guna2NumericUpDown1 = new Guna.UI2.WinForms.Guna2NumericUpDown();
             guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
             guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
@@ -104,6 +110,7 @@ namespace xrayimageproject
             guna2Button11 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             panel3 = new Panel();
+            cut = new Guna.UI2.WinForms.Guna2Button();
             guna2Button20 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button19 = new Guna.UI2.WinForms.Guna2Button();
@@ -114,7 +121,7 @@ namespace xrayimageproject
             pictureBox3 = new PictureBox();
             axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
-            guna2Button21 = new Guna.UI2.WinForms.Guna2Button();
+            layersFlowLayoutPanel = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2NumericUpDown1).BeginInit();
@@ -152,10 +159,36 @@ namespace xrayimageproject
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1300, 58);
+            panel1.Size = new Size(1610, 58);
             panel1.TabIndex = 2;
             panel1.Click += panel1_Click;
             panel1.Paint += panel1_Paint;
+            // 
+            // guna2Button21
+            // 
+            guna2Button21.BorderRadius = 20;
+            guna2Button21.CustomizableEdges = customizableEdges1;
+            guna2Button21.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button21.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button21.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button21.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button21.FillColor = SystemColors.Control;
+            guna2Button21.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2Button21.ForeColor = Color.Gray;
+            guna2Button21.HoverState.BorderColor = Color.FromArgb(30, 170, 231);
+            guna2Button21.HoverState.FillColor = Color.FromArgb(30, 170, 231);
+            guna2Button21.HoverState.ForeColor = Color.White;
+            guna2Button21.Image = (Image)resources.GetObject("guna2Button21.Image");
+            guna2Button21.ImageAlign = HorizontalAlignment.Left;
+            guna2Button21.ImageSize = new Size(30, 30);
+            guna2Button21.Location = new Point(809, 3);
+            guna2Button21.Name = "guna2Button21";
+            guna2Button21.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            guna2Button21.Size = new Size(174, 52);
+            guna2Button21.TabIndex = 11;
+            guna2Button21.Text = "Evaluate";
+            guna2Button21.TextOffset = new Point(10, 0);
+            guna2Button21.Click += guna2Button21_Click;
             // 
             // guna2NumericUpDown1
             // 
@@ -200,7 +233,7 @@ namespace xrayimageproject
             guna2Button4.ForeColor = Color.White;
             guna2Button4.Image = (Image)resources.GetObject("guna2Button4.Image");
             guna2Button4.ImageSize = new Size(30, 30);
-            guna2Button4.Location = new Point(1206, 3);
+            guna2Button4.Location = new Point(1501, 0);
             guna2Button4.Name = "guna2Button4";
             guna2Button4.ShadowDecoration.CustomizableEdges = customizableEdges8;
             guna2Button4.Size = new Size(45, 52);
@@ -220,7 +253,7 @@ namespace xrayimageproject
             guna2Button3.ForeColor = Color.White;
             guna2Button3.Image = (Image)resources.GetObject("guna2Button3.Image");
             guna2Button3.ImageSize = new Size(30, 30);
-            guna2Button3.Location = new Point(1155, 3);
+            guna2Button3.Location = new Point(1453, 0);
             guna2Button3.Name = "guna2Button3";
             guna2Button3.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2Button3.Size = new Size(45, 52);
@@ -240,7 +273,7 @@ namespace xrayimageproject
             guna2Button6.ForeColor = Color.White;
             guna2Button6.Image = (Image)resources.GetObject("guna2Button6.Image");
             guna2Button6.ImageSize = new Size(30, 30);
-            guna2Button6.Location = new Point(1252, 3);
+            guna2Button6.Location = new Point(1543, 0);
             guna2Button6.Name = "guna2Button6";
             guna2Button6.ShadowDecoration.CustomizableEdges = customizableEdges12;
             guna2Button6.Size = new Size(45, 52);
@@ -261,7 +294,7 @@ namespace xrayimageproject
             guna2Button5.HoverState.ForeColor = Color.White;
             guna2Button5.HoverState.Image = (Image)resources.GetObject("resource.Image");
             guna2Button5.Image = (Image)resources.GetObject("guna2Button5.Image");
-            guna2Button5.Location = new Point(1068, 9);
+            guna2Button5.Location = new Point(1303, 9);
             guna2Button5.Name = "guna2Button5";
             guna2Button5.ShadowDecoration.CustomizableEdges = customizableEdges14;
             guna2Button5.Size = new Size(38, 43);
@@ -282,7 +315,7 @@ namespace xrayimageproject
             guna2Button1.HoverState.ForeColor = Color.White;
             guna2Button1.HoverState.Image = (Image)resources.GetObject("resource.Image1");
             guna2Button1.Image = (Image)resources.GetObject("guna2Button1.Image");
-            guna2Button1.Location = new Point(1024, 9);
+            guna2Button1.Location = new Point(1259, 9);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges16;
             guna2Button1.Size = new Size(38, 43);
@@ -298,7 +331,6 @@ namespace xrayimageproject
             label1.Size = new Size(328, 34);
             label1.TabIndex = 5;
             label1.Text = "X-Ray Images analyzer";
-            label1.Click += label1_Click;
             // 
             // pictureBox2
             // 
@@ -409,7 +441,7 @@ namespace xrayimageproject
             // guna2Button15
             // 
             guna2Button15.BorderRadius = 20;
-            guna2Button15.CustomizableEdges = customizableEdges21;
+            guna2Button15.CustomizableEdges = customizableEdges23;
             guna2Button15.DisabledState.BorderColor = Color.DarkGray;
             guna2Button15.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button15.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -425,7 +457,7 @@ namespace xrayimageproject
             guna2Button15.ImageSize = new Size(30, 30);
             guna2Button15.Location = new Point(3, 440);
             guna2Button15.Name = "guna2Button15";
-            guna2Button15.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            guna2Button15.ShadowDecoration.CustomizableEdges = customizableEdges24;
             guna2Button15.Size = new Size(181, 56);
             guna2Button15.TabIndex = 12;
             guna2Button15.Text = "Compress";
@@ -435,7 +467,7 @@ namespace xrayimageproject
             // guna2Button14
             // 
             guna2Button14.BorderRadius = 20;
-            guna2Button14.CustomizableEdges = customizableEdges23;
+            guna2Button14.CustomizableEdges = customizableEdges25;
             guna2Button14.DisabledState.BorderColor = Color.DarkGray;
             guna2Button14.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button14.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -451,7 +483,7 @@ namespace xrayimageproject
             guna2Button14.ImageSize = new Size(30, 30);
             guna2Button14.Location = new Point(3, 378);
             guna2Button14.Name = "guna2Button14";
-            guna2Button14.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            guna2Button14.ShadowDecoration.CustomizableEdges = customizableEdges26;
             guna2Button14.Size = new Size(184, 56);
             guna2Button14.TabIndex = 11;
             guna2Button14.Text = "LPF Fourier";
@@ -461,7 +493,7 @@ namespace xrayimageproject
             // guna2Button13
             // 
             guna2Button13.BorderRadius = 20;
-            guna2Button13.CustomizableEdges = customizableEdges25;
+            guna2Button13.CustomizableEdges = customizableEdges27;
             guna2Button13.DisabledState.BorderColor = Color.DarkGray;
             guna2Button13.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button13.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -477,7 +509,7 @@ namespace xrayimageproject
             guna2Button13.ImageSize = new Size(30, 30);
             guna2Button13.Location = new Point(3, 316);
             guna2Button13.Name = "guna2Button13";
-            guna2Button13.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            guna2Button13.ShadowDecoration.CustomizableEdges = customizableEdges28;
             guna2Button13.Size = new Size(181, 56);
             guna2Button13.TabIndex = 10;
             guna2Button13.Text = "HPF Fourier";
@@ -487,7 +519,7 @@ namespace xrayimageproject
             // guna2Button10
             // 
             guna2Button10.BorderRadius = 20;
-            guna2Button10.CustomizableEdges = customizableEdges27;
+            guna2Button10.CustomizableEdges = customizableEdges29;
             guna2Button10.DisabledState.BorderColor = Color.DarkGray;
             guna2Button10.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button10.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -503,7 +535,7 @@ namespace xrayimageproject
             guna2Button10.ImageSize = new Size(30, 30);
             guna2Button10.Location = new Point(3, 254);
             guna2Button10.Name = "guna2Button10";
-            guna2Button10.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            guna2Button10.ShadowDecoration.CustomizableEdges = customizableEdges30;
             guna2Button10.Size = new Size(181, 56);
             guna2Button10.TabIndex = 9;
             guna2Button10.Text = "Copy";
@@ -513,7 +545,7 @@ namespace xrayimageproject
             // guna2Button12
             // 
             guna2Button12.BorderRadius = 20;
-            guna2Button12.CustomizableEdges = customizableEdges29;
+            guna2Button12.CustomizableEdges = customizableEdges31;
             guna2Button12.DisabledState.BorderColor = Color.DarkGray;
             guna2Button12.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button12.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -529,7 +561,7 @@ namespace xrayimageproject
             guna2Button12.ImageSize = new Size(30, 30);
             guna2Button12.Location = new Point(3, 130);
             guna2Button12.Name = "guna2Button12";
-            guna2Button12.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            guna2Button12.ShadowDecoration.CustomizableEdges = customizableEdges32;
             guna2Button12.Size = new Size(181, 56);
             guna2Button12.TabIndex = 8;
             guna2Button12.Text = "Export";
@@ -539,7 +571,7 @@ namespace xrayimageproject
             // guna2Button11
             // 
             guna2Button11.BorderRadius = 20;
-            guna2Button11.CustomizableEdges = customizableEdges31;
+            guna2Button11.CustomizableEdges = customizableEdges33;
             guna2Button11.DisabledState.BorderColor = Color.DarkGray;
             guna2Button11.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button11.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -555,7 +587,7 @@ namespace xrayimageproject
             guna2Button11.ImageSize = new Size(30, 30);
             guna2Button11.Location = new Point(3, 68);
             guna2Button11.Name = "guna2Button11";
-            guna2Button11.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            guna2Button11.ShadowDecoration.CustomizableEdges = customizableEdges34;
             guna2Button11.Size = new Size(181, 56);
             guna2Button11.TabIndex = 7;
             guna2Button11.Text = "Save As";
@@ -565,7 +597,7 @@ namespace xrayimageproject
             // guna2Button2
             // 
             guna2Button2.BorderRadius = 20;
-            guna2Button2.CustomizableEdges = customizableEdges33;
+            guna2Button2.CustomizableEdges = customizableEdges35;
             guna2Button2.DisabledState.BorderColor = Color.DarkGray;
             guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -581,7 +613,7 @@ namespace xrayimageproject
             guna2Button2.ImageSize = new Size(30, 30);
             guna2Button2.Location = new Point(3, 6);
             guna2Button2.Name = "guna2Button2";
-            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges34;
+            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges36;
             guna2Button2.Size = new Size(181, 56);
             guna2Button2.TabIndex = 4;
             guna2Button2.Text = "Import";
@@ -590,6 +622,7 @@ namespace xrayimageproject
             // 
             // panel3
             // 
+            panel3.Controls.Add(cut);
             panel3.Controls.Add(guna2Button20);
             panel3.Controls.Add(guna2Button7);
             panel3.Controls.Add(guna2Button19);
@@ -600,14 +633,42 @@ namespace xrayimageproject
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(187, 646);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1113, 74);
+            panel3.Size = new Size(1423, 74);
             panel3.TabIndex = 4;
+            // 
+            // cut
+            // 
+            cut.AccessibleName = "false";
+            cut.BorderRadius = 20;
+            cut.CustomizableEdges = customizableEdges37;
+            cut.DisabledState.BorderColor = Color.DarkGray;
+            cut.DisabledState.CustomBorderColor = Color.DarkGray;
+            cut.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            cut.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            cut.FillColor = SystemColors.Control;
+            cut.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cut.ForeColor = Color.Gray;
+            cut.HoverState.BorderColor = Color.FromArgb(30, 170, 231);
+            cut.HoverState.FillColor = Color.FromArgb(30, 170, 231);
+            cut.HoverState.ForeColor = Color.White;
+            cut.Image = (Image)resources.GetObject("cut.Image");
+            cut.ImageAlign = HorizontalAlignment.Left;
+            cut.ImageSize = new Size(30, 30);
+            cut.Location = new Point(917, 6);
+            cut.Name = "cut";
+            cut.ShadowDecoration.CustomizableEdges = customizableEdges38;
+            cut.Size = new Size(174, 56);
+            cut.TabIndex = 13;
+            cut.Text = "Cut";
+            cut.TextOffset = new Point(10, 0);
+            cut.Visible = false;
+            cut.Click += cut_Click_1;
             // 
             // guna2Button20
             // 
             guna2Button20.AccessibleName = "false";
             guna2Button20.BorderRadius = 20;
-            guna2Button20.CustomizableEdges = customizableEdges35;
+            guna2Button20.CustomizableEdges = customizableEdges39;
             guna2Button20.DisabledState.BorderColor = Color.DarkGray;
             guna2Button20.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button20.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -621,9 +682,9 @@ namespace xrayimageproject
             guna2Button20.Image = (Image)resources.GetObject("guna2Button20.Image");
             guna2Button20.ImageAlign = HorizontalAlignment.Left;
             guna2Button20.ImageSize = new Size(30, 30);
-            guna2Button20.Location = new Point(918, 6);
+            guna2Button20.Location = new Point(1266, 6);
             guna2Button20.Name = "guna2Button20";
-            guna2Button20.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            guna2Button20.ShadowDecoration.CustomizableEdges = customizableEdges40;
             guna2Button20.Size = new Size(174, 56);
             guna2Button20.TabIndex = 11;
             guna2Button20.Text = "Stop Recording";
@@ -635,7 +696,7 @@ namespace xrayimageproject
             // 
             guna2Button7.AccessibleName = "false";
             guna2Button7.BorderRadius = 20;
-            guna2Button7.CustomizableEdges = customizableEdges37;
+            guna2Button7.CustomizableEdges = customizableEdges41;
             guna2Button7.DisabledState.BorderColor = Color.DarkGray;
             guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button7.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -649,9 +710,9 @@ namespace xrayimageproject
             guna2Button7.Image = (Image)resources.GetObject("guna2Button7.Image");
             guna2Button7.ImageAlign = HorizontalAlignment.Left;
             guna2Button7.ImageSize = new Size(30, 30);
-            guna2Button7.Location = new Point(918, 6);
+            guna2Button7.Location = new Point(1086, 6);
             guna2Button7.Name = "guna2Button7";
-            guna2Button7.ShadowDecoration.CustomizableEdges = customizableEdges38;
+            guna2Button7.ShadowDecoration.CustomizableEdges = customizableEdges42;
             guna2Button7.Size = new Size(174, 56);
             guna2Button7.TabIndex = 10;
             guna2Button7.Text = "Record";
@@ -661,7 +722,7 @@ namespace xrayimageproject
             // guna2Button19
             // 
             guna2Button19.BorderRadius = 20;
-            guna2Button19.CustomizableEdges = customizableEdges39;
+            guna2Button19.CustomizableEdges = customizableEdges43;
             guna2Button19.DisabledState.BorderColor = Color.DarkGray;
             guna2Button19.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button19.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -677,7 +738,7 @@ namespace xrayimageproject
             guna2Button19.ImageSize = new Size(30, 30);
             guna2Button19.Location = new Point(575, 6);
             guna2Button19.Name = "guna2Button19";
-            guna2Button19.ShadowDecoration.CustomizableEdges = customizableEdges40;
+            guna2Button19.ShadowDecoration.CustomizableEdges = customizableEdges44;
             guna2Button19.Size = new Size(174, 56);
             guna2Button19.TabIndex = 9;
             guna2Button19.Text = "Compare";
@@ -687,7 +748,7 @@ namespace xrayimageproject
             // guna2ComboBox2
             // 
             guna2ComboBox2.BackColor = Color.Transparent;
-            guna2ComboBox2.CustomizableEdges = customizableEdges41;
+            guna2ComboBox2.CustomizableEdges = customizableEdges45;
             guna2ComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
             guna2ComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             guna2ComboBox2.FillColor = SystemColors.Control;
@@ -699,7 +760,7 @@ namespace xrayimageproject
             guna2ComboBox2.Items.AddRange(new object[] { "Select Color ", "visual spectrum", "deep violet", "Diagnostic", "Medical", "Red", "Blue", "Green" });
             guna2ComboBox2.Location = new Point(71, 17);
             guna2ComboBox2.Name = "guna2ComboBox2";
-            guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges42;
+            guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges46;
             guna2ComboBox2.Size = new Size(246, 36);
             guna2ComboBox2.StartIndex = 0;
             guna2ComboBox2.TabIndex = 8;
@@ -708,7 +769,7 @@ namespace xrayimageproject
             // guna2ComboBox1
             // 
             guna2ComboBox1.BackColor = Color.Transparent;
-            guna2ComboBox1.CustomizableEdges = customizableEdges43;
+            guna2ComboBox1.CustomizableEdges = customizableEdges47;
             guna2ComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
             guna2ComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             guna2ComboBox1.FillColor = SystemColors.Control;
@@ -720,7 +781,7 @@ namespace xrayimageproject
             guna2ComboBox1.Items.AddRange(new object[] { "Select Color System", "Gray-Scale Mode", "CMY Mode", "Plasma Mode", "Hot Mode", "Jet Mode", "Pink Mode", "Bone Mode" });
             guna2ComboBox1.Location = new Point(323, 17);
             guna2ComboBox1.Name = "guna2ComboBox1";
-            guna2ComboBox1.ShadowDecoration.CustomizableEdges = customizableEdges44;
+            guna2ComboBox1.ShadowDecoration.CustomizableEdges = customizableEdges48;
             guna2ComboBox1.Size = new Size(246, 36);
             guna2ComboBox1.StartIndex = 0;
             guna2ComboBox1.TabIndex = 5;
@@ -729,7 +790,7 @@ namespace xrayimageproject
             // guna2Button9
             // 
             guna2Button9.BorderRadius = 20;
-            guna2Button9.CustomizableEdges = customizableEdges45;
+            guna2Button9.CustomizableEdges = customizableEdges49;
             guna2Button9.DisabledState.BorderColor = Color.DarkGray;
             guna2Button9.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button9.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -745,7 +806,7 @@ namespace xrayimageproject
             guna2Button9.ImageSize = new Size(30, 30);
             guna2Button9.Location = new Point(755, 6);
             guna2Button9.Name = "guna2Button9";
-            guna2Button9.ShadowDecoration.CustomizableEdges = customizableEdges46;
+            guna2Button9.ShadowDecoration.CustomizableEdges = customizableEdges50;
             guna2Button9.Size = new Size(174, 56);
             guna2Button9.TabIndex = 7;
             guna2Button9.Text = "Draw";
@@ -755,7 +816,7 @@ namespace xrayimageproject
             // guna2Button8
             // 
             guna2Button8.BorderRadius = 20;
-            guna2Button8.CustomizableEdges = customizableEdges47;
+            guna2Button8.CustomizableEdges = customizableEdges51;
             guna2Button8.DisabledState.BorderColor = Color.DarkGray;
             guna2Button8.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button8.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -769,11 +830,10 @@ namespace xrayimageproject
             guna2Button8.ImageSize = new Size(30, 30);
             guna2Button8.Location = new Point(6, 6);
             guna2Button8.Name = "guna2Button8";
-            guna2Button8.ShadowDecoration.CustomizableEdges = customizableEdges46;
+            guna2Button8.ShadowDecoration.CustomizableEdges = customizableEdges50;
             guna2Button8.Size = new Size(59, 56);
             guna2Button8.TabIndex = 6;
             guna2Button8.TextOffset = new Point(10, 0);
-            guna2Button8.Click += guna2Button8_Click;
             // 
             // pictureBox3
             // 
@@ -795,7 +855,6 @@ namespace xrayimageproject
             axWindowsMediaPlayer1.Size = new Size(443, 254);
             axWindowsMediaPlayer1.TabIndex = 9;
             axWindowsMediaPlayer1.Visible = false;
-            axWindowsMediaPlayer1.Enter += axWindowsMediaPlayer1_Enter_1;
             // 
             // guna2DataGridView1
             // 
@@ -851,36 +910,21 @@ namespace xrayimageproject
             guna2DataGridView1.Visible = false;
             guna2DataGridView1.CellContentClick += guna2DataGridView1_CellContentClick;
             // 
-            // guna2Button21
+            // layersFlowLayoutPanel
             // 
-            guna2Button21.BorderRadius = 20;
-            guna2Button21.CustomizableEdges = customizableEdges1;
-            guna2Button21.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button21.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button21.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button21.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button21.FillColor = SystemColors.Control;
-            guna2Button21.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button21.ForeColor = Color.Gray;
-            guna2Button21.HoverState.BorderColor = Color.FromArgb(30, 170, 231);
-            guna2Button21.HoverState.FillColor = Color.FromArgb(30, 170, 231);
-            guna2Button21.HoverState.ForeColor = Color.White;
-            guna2Button21.Image = (Image)resources.GetObject("Evaluate");
-            guna2Button21.ImageAlign = HorizontalAlignment.Left;
-            guna2Button21.ImageSize = new Size(30, 30);
-            guna2Button21.Location = new Point(809, 3);
-            guna2Button21.Name = "guna2Button21";
-            guna2Button21.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button21.Size = new Size(174, 56);
-            guna2Button21.TabIndex = 11;
-            guna2Button21.Text = "Evaluate";
-            guna2Button21.TextOffset = new Point(10, 0);
-            guna2Button21.Click += guna2Button21_Click;
+            layersFlowLayoutPanel.AutoScroll = true;
+            layersFlowLayoutPanel.BackColor = Color.FromArgb(224, 224, 224);
+            layersFlowLayoutPanel.BorderStyle = BorderStyle.Fixed3D;
+            layersFlowLayoutPanel.Location = new Point(1303, 61);
+            layersFlowLayoutPanel.Name = "layersFlowLayoutPanel";
+            layersFlowLayoutPanel.Size = new Size(295, 585);
+            layersFlowLayoutPanel.TabIndex = 12;
             // 
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1300, 720);
+            ClientSize = new Size(1610, 720);
+            Controls.Add(layersFlowLayoutPanel);
             Controls.Add(guna2DataGridView1);
             Controls.Add(axWindowsMediaPlayer1);
             Controls.Add(pictureBox3);
@@ -893,10 +937,7 @@ namespace xrayimageproject
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             Text = "XRayProject";
-            Load += Form1_Load;
             Click += Form1_Click;
-            MouseDown += Form1_MouseDown;
-            MouseUp += Form1_MouseUp;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -912,7 +953,6 @@ namespace xrayimageproject
 
 
         #endregion
-
         private PictureBox pictureBox1;
         private Panel panel1;
         private Label label1;
@@ -948,5 +988,9 @@ namespace xrayimageproject
         private Guna.UI2.WinForms.Guna2Button guna2Button20;
         private VoiceManager voiceManager = new VoiceManager();
         private Guna.UI2.WinForms.Guna2Button guna2Button21;
-    }
+
+        public PictureBox edingtPictureBox;
+        private Guna.UI2.WinForms.Guna2Button cut;
+        private FlowLayoutPanel layersFlowLayoutPanel;
+    }   
 }

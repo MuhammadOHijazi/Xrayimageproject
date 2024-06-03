@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="searchPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\Users\\number one\\source\\repos\\Xrayimageproject\\xrayimageproject\\xrayimageproject\\patient files\</Value>
+      <Value Profile="(Default)">..\\..\\..\\patient_files</Value>
     </Setting>
   </Settings>
 </SettingsFile>
