@@ -1,5 +1,10 @@
 using System.Drawing.Imaging;
 using System.IO.Compression;
+using System;
+using Telegram.Bot;
+using System.Net.Http;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace xrayimageproject
 {
@@ -1294,5 +1299,41 @@ namespace xrayimageproject
                 }
             }
         }
+        string Document_send_path;
+        private static readonly string botToken = "6441509102:AAHkYE-XSzQI4fm-qZFWYbtsxUyivPKUNC8";
+        private TelegramBotClient botClient;
+        private Dictionary<string, long> userChatIdMapping = new Dictionary<string, long>();
+        private void guna2Button5_Click(object sender, EventArgs e)
+        {
+
+                //MessageBox.Show("First You have to export to PDF to send the image");
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Document_send_path = openFileDialog.FileName;
+                    }
+                }
+                string filePath = Document_send_path;
+
+
+                //string username = textBoxUsername.Text; // Assuming you have a TextBox to input username
+                /*
+                if (File.Exists(filePath) && userChatIdMapping.TryGetValue(username, out long chatId))
+                {
+                    using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                    {
+                        // InputOnlineFile inputOnlineFile = new InputOnlineFile(fileStream, Path.GetFileName(filePath));
+                        // await botClient.SendDocumentAsync(chatId, inputOnlineFile);
+                        MessageBox.Show("File sent successfully!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("File not found or username not mapped to chat ID.");
+                }*/
+            }
     }
 }
+
+
