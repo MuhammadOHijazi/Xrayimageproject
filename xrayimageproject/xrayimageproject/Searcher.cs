@@ -35,11 +35,6 @@ namespace xrayimageproject
                                  .Where(file => file.CreationTime.Date == this.date.Date)
                                  .ToList();
 
-            foreach (FileInfo file in files )
-            {
-                //Console.WriteLine(file.);
-            }
-
             return files;
 
         }

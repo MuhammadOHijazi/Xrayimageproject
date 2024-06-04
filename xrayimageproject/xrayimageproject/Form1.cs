@@ -5,9 +5,14 @@ using System.Net.Http;
 using NAudio.Gui;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 
 namespace xrayimageproject
 {
+    public enum Shape
+    {
+        Square, Circle, FreeShape,
+    }
     public partial class Form1 : Form
     {
 
@@ -28,6 +33,7 @@ namespace xrayimageproject
         Rectangle SelectedArea;
         Bitmap selectedBitmap;
 
+        Shape shape;
         public Form1()
         {
             InitializeComponent();
@@ -38,7 +44,7 @@ namespace xrayimageproject
             pictureBox1.MouseDown += new MouseEventHandler(pictureBox_MouseDown);
             pictureBox1.MouseMove += new MouseEventHandler(pictureBox_MouseMove);
             pictureBox1.MouseUp += new MouseEventHandler(pictureBox_MouseUp);
-            pictureBox1.Paint += new PaintEventHandler(pictureBox_Paint);
+            //pictureBox1.Paint += new PaintEventHandler(pictureBox_Paint);
 
         }
         private void loadImage()
@@ -96,7 +102,37 @@ namespace xrayimageproject
 
             }
         }
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        private void guna2ComboBox3_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            switch (guna2ComboBox3.SelectedItem.ToString())
+            {
+                case "Square":
+                    shape = Shape.Square;
+                    break;
+                case "Circle":
+                    shape = Shape.Circle;
+                    break;
+                case "Free shape":
+                    shape = Shape.FreeShape;
+                    break;
+            }
+        }
+
+        private void DrawSquare(object sender, PaintEventArgs e)
+        {
+            if (isSelecting)
+            {
+                // Draw a rectangle to represent the selected area
+                SelectedArea = GetRectangle(selectionStart, selectionEnd);
+                e.Graphics.DrawRectangle(Pens.Black, SelectedArea);
+
+            }
+        }
+        private void DrawCircle(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawEllipse(Pens.Black, GetRectangle(selectionStart, selectionEnd));
+        }
+        private void DrawFreeShape(object sender, PaintEventArgs e)
         {
             if (points.Count > 1)
             {
@@ -107,21 +143,25 @@ namespace xrayimageproject
                     using (Pen colorPen = new Pen(Color.Red, 1))
                     {
                         Graphics.FromImage(mergedImage).DrawLine(colorPen, points[i - 1], points[i]);
-
                         e.Graphics.DrawLine(colorPen, points[i - 1], points[i]);
-
-                        int width = Math.Abs(points[points.Count - 1].X - points[0].X);
-                        int height = Math.Abs(points[points.Count - 1].Y - points[0].Y);
-
-                        //   e.Graphics.DrawRectangle(colorPen,new Rectangle(points[0].X, points[0].Y,width,height));
                     }
-
                 }
                 using (Pen dashedPen = new Pen(Color.Black, 3) { DashPattern = new float[] { 5, 5 } })
                 {
                     e.Graphics.DrawLine(dashedPen, points[0], points[points.Count - 1]);
                 }
             }
+        }
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (shape == Shape.Square)
+                DrawSquare(sender, e);
+            else if (shape == Shape.Circle)
+                DrawCircle(sender, e);
+            else if (shape == Shape.FreeShape)
+                DrawFreeShape(sender, e);
+            else
+                MessageBox.Show("You have to choose a shape !");
         }
         //SCAN
         public Bitmap scan(List<Point> listOfPoints, Bitmap bm)
@@ -197,7 +237,7 @@ namespace xrayimageproject
                     }
                 }
             }
-            //pictureBox1.Image = n;
+            pictureBox1.Image = n;
             mergedImage = n.Clone() as Bitmap;
         }
 
@@ -233,7 +273,7 @@ namespace xrayimageproject
 
             }
         }
-
+/*
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
             if (isSelecting)
@@ -243,7 +283,8 @@ namespace xrayimageproject
                 e.Graphics.DrawRectangle(Pens.Black, SelectedArea);
 
             }
-        }
+        }*/
+
         private Rectangle GetRectangle(Point p1, Point p2)
         {
             return new Rectangle(
@@ -1351,6 +1392,7 @@ namespace xrayimageproject
         {
 
         }
+
     }
 }
 
